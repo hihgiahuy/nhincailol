@@ -1,0 +1,2044 @@
+<!doctype html>
+<html lang="en-GB">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+        if (navigator.userAgent.match(/MSIE|Internet Explorer/i) || navigator.userAgent.match(/Trident\/7\..*?rv:11/i)) {
+            var href = document.location.href;
+            if (!href.match(/[?&]nowprocket/)) {
+                if (href.indexOf("?") == -1) {
+                    if (href.indexOf("#") == -1) {
+                        document.location.href = href + "?nowprocket=1"
+                    } else {
+                        document.location.href = href.replace("#", "?nowprocket=1#")
+                    }
+                } else {
+                    if (href.indexOf("#") == -1) {
+                        document.location.href = href + "&nowprocket=1"
+                    } else {
+                        document.location.href = href.replace("#", "&nowprocket=1#")
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        (() => {
+            class RocketLazyLoadScripts {
+                constructor() {
+                    this.v = "1.2.6", this.triggerEvents = ["keydown", "mousedown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"], this.userEventHandler = this.t.bind(this), this.touchStartHandler = this.i.bind(this), this.touchMoveHandler = this.o.bind(this), this.touchEndHandler = this.h.bind(this), this.clickHandler = this.u.bind(this), this.interceptedClicks = [], this.interceptedClickListeners = [], this.l(this), window.addEventListener("pageshow", (t => {
+                        this.persisted = t.persisted, this.everythingLoaded && this.m()
+                    })), this.CSPIssue = sessionStorage.getItem("rocketCSPIssue"), document.addEventListener("securitypolicyviolation", (t => {
+                        this.CSPIssue || "script-src-elem" !== t.violatedDirective || "data" !== t.blockedURI || (this.CSPIssue = !0, sessionStorage.setItem("rocketCSPIssue", !0))
+                    })), document.addEventListener("DOMContentLoaded", (() => {
+                        this.k()
+                    })), this.delayedScripts = {
+                        normal: [],
+                        async: [],
+                        defer: []
+                    }, this.trash = [], this.allJQueries = []
+                }
+                p(t) {
+                    document.hidden ? t.t() : (this.triggerEvents.forEach((e => window.addEventListener(e, t.userEventHandler, {
+                        passive: !0
+                    }))), window.addEventListener("touchstart", t.touchStartHandler, {
+                        passive: !0
+                    }), window.addEventListener("mousedown", t.touchStartHandler), document.addEventListener("visibilitychange", t.userEventHandler))
+                }
+                _() {
+                    this.triggerEvents.forEach((t => window.removeEventListener(t, this.userEventHandler, {
+                        passive: !0
+                    }))), document.removeEventListener("visibilitychange", this.userEventHandler)
+                }
+                i(t) {
+                    "HTML" !== t.target.tagName && (window.addEventListener("touchend", this.touchEndHandler), window.addEventListener("mouseup", this.touchEndHandler), window.addEventListener("touchmove", this.touchMoveHandler, {
+                        passive: !0
+                    }), window.addEventListener("mousemove", this.touchMoveHandler), t.target.addEventListener("click", this.clickHandler), this.L(t.target, !0), this.S(t.target, "onclick", "rocket-onclick"), this.C())
+                }
+                o(t) {
+                    window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, {
+                        passive: !0
+                    }), window.removeEventListener("mousemove", this.touchMoveHandler), t.target.removeEventListener("click", this.clickHandler), this.L(t.target, !1), this.S(t.target, "rocket-onclick", "onclick"), this.M()
+                }
+                h() {
+                    window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, {
+                        passive: !0
+                    }), window.removeEventListener("mousemove", this.touchMoveHandler)
+                }
+                u(t) {
+                    t.target.removeEventListener("click", this.clickHandler), this.L(t.target, !1), this.S(t.target, "rocket-onclick", "onclick"), this.interceptedClicks.push(t), t.preventDefault(), t.stopPropagation(), t.stopImmediatePropagation(), this.M()
+                }
+                O() {
+                    window.removeEventListener("touchstart", this.touchStartHandler, {
+                        passive: !0
+                    }), window.removeEventListener("mousedown", this.touchStartHandler), this.interceptedClicks.forEach((t => {
+                        t.target.dispatchEvent(new MouseEvent("click", {
+                            view: t.view,
+                            bubbles: !0,
+                            cancelable: !0
+                        }))
+                    }))
+                }
+                l(t) {
+                    EventTarget.prototype.addEventListenerWPRocketBase = EventTarget.prototype.addEventListener, EventTarget.prototype.addEventListener = function(e, i, o) {
+                        "click" !== e || t.windowLoaded || i === t.clickHandler || t.interceptedClickListeners.push({
+                            target: this,
+                            func: i,
+                            options: o
+                        }), (this || window).addEventListenerWPRocketBase(e, i, o)
+                    }
+                }
+                L(t, e) {
+                    this.interceptedClickListeners.forEach((i => {
+                        i.target === t && (e ? t.removeEventListener("click", i.func, i.options) : t.addEventListener("click", i.func, i.options))
+                    })), t.parentNode !== document.documentElement && this.L(t.parentNode, e)
+                }
+                D() {
+                    return new Promise((t => {
+                        this.P ? this.M = t : t()
+                    }))
+                }
+                C() {
+                    this.P = !0
+                }
+                M() {
+                    this.P = !1
+                }
+                S(t, e, i) {
+                    t.hasAttribute && t.hasAttribute(e) && (event.target.setAttribute(i, event.target.getAttribute(e)), event.target.removeAttribute(e))
+                }
+                t() {
+                    this._(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this.R.bind(this)) : this.R()
+                }
+                k() {
+                    let t = [];
+                    document.querySelectorAll("script[type=rocketlazyloadscript][data-rocket-src]").forEach((e => {
+                        let i = e.getAttribute("data-rocket-src");
+                        if (i && !i.startsWith("data:")) {
+                            0 === i.indexOf("//") && (i = location.protocol + i);
+                            try {
+                                const o = new URL(i).origin;
+                                o !== location.origin && t.push({
+                                    src: o,
+                                    crossOrigin: e.crossOrigin || "module" === e.getAttribute("data-rocket-type")
+                                })
+                            } catch (t) {}
+                        }
+                    })), t = [...new Map(t.map((t => [JSON.stringify(t), t]))).values()], this.T(t, "preconnect")
+                }
+                async R() {
+                    this.lastBreath = Date.now(), this.j(this), this.F(this), this.I(), this.W(), this.q(), await this.A(this.delayedScripts.normal), await this.A(this.delayedScripts.defer), await this.A(this.delayedScripts.async);
+                    try {
+                        await this.U(), await this.H(this), await this.J()
+                    } catch (t) {
+                        console.error(t)
+                    }
+                    window.dispatchEvent(new Event("rocket-allScriptsLoaded")), this.everythingLoaded = !0, this.D().then((() => {
+                        this.O()
+                    })), this.N()
+                }
+                W() {
+                    document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((t => {
+                        t.hasAttribute("data-rocket-src") ? t.hasAttribute("async") && !1 !== t.async ? this.delayedScripts.async.push(t) : t.hasAttribute("defer") && !1 !== t.defer || "module" === t.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(t) : this.delayedScripts.normal.push(t) : this.delayedScripts.normal.push(t)
+                    }))
+                }
+                async B(t) {
+                    if (await this.G(), !0 !== t.noModule || !("noModule" in HTMLScriptElement.prototype)) return new Promise((e => {
+                        let i;
+
+                        function o() {
+                            (i || t).setAttribute("data-rocket-status", "executed"), e()
+                        }
+                        try {
+                            if (navigator.userAgent.indexOf("Firefox/") > 0 || "" === navigator.vendor || this.CSPIssue) i = document.createElement("script"), [...t.attributes].forEach((t => {
+                                let e = t.nodeName;
+                                "type" !== e && ("data-rocket-type" === e && (e = "type"), "data-rocket-src" === e && (e = "src"), i.setAttribute(e, t.nodeValue))
+                            })), t.text && (i.text = t.text), i.hasAttribute("src") ? (i.addEventListener("load", o), i.addEventListener("error", (function() {
+                                i.setAttribute("data-rocket-status", "failed-network"), e()
+                            })), setTimeout((() => {
+                                i.isConnected || e()
+                            }), 1)) : (i.text = t.text, o()), t.parentNode.replaceChild(i, t);
+                            else {
+                                const i = t.getAttribute("data-rocket-type"),
+                                    s = t.getAttribute("data-rocket-src");
+                                i ? (t.type = i, t.removeAttribute("data-rocket-type")) : t.removeAttribute("type"), t.addEventListener("load", o), t.addEventListener("error", (i => {
+                                    this.CSPIssue && i.target.src.startsWith("data:") ? (console.log("WPRocket: data-uri blocked by CSP -> fallback"), t.removeAttribute("src"), this.B(t).then(e)) : (t.setAttribute("data-rocket-status", "failed-network"), e())
+                                })), s ? (t.removeAttribute("data-rocket-src"), t.src = s) : t.src = "data:text/javascript;base64," + window.btoa(unescape(encodeURIComponent(t.text)))
+                            }
+                        } catch (i) {
+                            t.setAttribute("data-rocket-status", "failed-transform"), e()
+                        }
+                    }));
+                    t.setAttribute("data-rocket-status", "skipped")
+                }
+                async A(t) {
+                    const e = t.shift();
+                    return e && e.isConnected ? (await this.B(e), this.A(t)) : Promise.resolve()
+                }
+                q() {
+                    this.T([...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async], "preload")
+                }
+                T(t, e) {
+                    var i = document.createDocumentFragment();
+                    t.forEach((t => {
+                        const o = t.getAttribute && t.getAttribute("data-rocket-src") || t.src;
+                        if (o && !o.startsWith("data:")) {
+                            const s = document.createElement("link");
+                            s.href = o, s.rel = e, "preconnect" !== e && (s.as = "script"), t.getAttribute && "module" === t.getAttribute("data-rocket-type") && (s.crossOrigin = !0), t.crossOrigin && (s.crossOrigin = t.crossOrigin), t.integrity && (s.integrity = t.integrity), i.appendChild(s), this.trash.push(s)
+                        }
+                    })), document.head.appendChild(i)
+                }
+                j(t) {
+                    let e = {};
+
+                    function i(i, o) {
+                        return e[o].eventsToRewrite.indexOf(i) >= 0 && !t.everythingLoaded ? "rocket-" + i : i
+                    }
+
+                    function o(t, o) {
+                        ! function(t) {
+                            e[t] || (e[t] = {
+                                originalFunctions: {
+                                    add: t.addEventListener,
+                                    remove: t.removeEventListener
+                                },
+                                eventsToRewrite: []
+                            }, t.addEventListener = function() {
+                                arguments[0] = i(arguments[0], t), e[t].originalFunctions.add.apply(t, arguments)
+                            }, t.removeEventListener = function() {
+                                arguments[0] = i(arguments[0], t), e[t].originalFunctions.remove.apply(t, arguments)
+                            })
+                        }(t), e[t].eventsToRewrite.push(o)
+                    }
+
+                    function s(e, i) {
+                        let o = e[i];
+                        e[i] = null, Object.defineProperty(e, i, {
+                            get: () => o || function() {},
+                            set(s) {
+                                t.everythingLoaded ? o = s : e["rocket" + i] = o = s
+                            }
+                        })
+                    }
+                    o(document, "DOMContentLoaded"), o(window, "DOMContentLoaded"), o(window, "load"), o(window, "pageshow"), o(document, "readystatechange"), s(document, "onreadystatechange"), s(window, "onload"), s(window, "onpageshow");
+                    try {
+                        Object.defineProperty(document, "readyState", {
+                            get: () => t.rocketReadyState,
+                            set(e) {
+                                t.rocketReadyState = e
+                            },
+                            configurable: !0
+                        }), document.readyState = "loading"
+                    } catch (t) {
+                        console.log("WPRocket DJE readyState conflict, bypassing")
+                    }
+                }
+                F(t) {
+                    let e;
+
+                    function i(e) {
+                        return t.everythingLoaded ? e : e.split(" ").map((t => "load" === t || 0 === t.indexOf("load.") ? "rocket-jquery-load" : t)).join(" ")
+                    }
+
+                    function o(o) {
+                        function s(t) {
+                            const e = o.fn[t];
+                            o.fn[t] = o.fn.init.prototype[t] = function() {
+                                return this[0] === window && ("string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = i(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach((t => {
+                                    const e = arguments[0][t];
+                                    delete arguments[0][t], arguments[0][i(t)] = e
+                                }))), e.apply(this, arguments), this
+                            }
+                        }
+                        o && o.fn && !t.allJQueries.includes(o) && (o.fn.ready = o.fn.init.prototype.ready = function(e) {
+                            return t.domReadyFired ? e.bind(document)(o) : document.addEventListener("rocket-DOMContentLoaded", (() => e.bind(document)(o))), o([])
+                        }, s("on"), s("one"), t.allJQueries.push(o)), e = o
+                    }
+                    o(window.jQuery), Object.defineProperty(window, "jQuery", {
+                        get: () => e,
+                        set(t) {
+                            o(t)
+                        }
+                    })
+                }
+                async H(t) {
+                    const e = document.querySelector("script[data-webpack]");
+                    e && (await async function() {
+                        return new Promise((t => {
+                            e.addEventListener("load", t), e.addEventListener("error", t)
+                        }))
+                    }(), await t.K(), await t.H(t))
+                }
+                async U() {
+                    this.domReadyFired = !0;
+                    try {
+                        document.readyState = "interactive"
+                    } catch (t) {}
+                    await this.G(), document.dispatchEvent(new Event("rocket-readystatechange")), await this.G(), document.rocketonreadystatechange && document.rocketonreadystatechange(), await this.G(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this.G(), window.dispatchEvent(new Event("rocket-DOMContentLoaded"))
+                }
+                async J() {
+                    try {
+                        document.readyState = "complete"
+                    } catch (t) {}
+                    await this.G(), document.dispatchEvent(new Event("rocket-readystatechange")), await this.G(), document.rocketonreadystatechange && document.rocketonreadystatechange(), await this.G(), window.dispatchEvent(new Event("rocket-load")), await this.G(), window.rocketonload && window.rocketonload(), await this.G(), this.allJQueries.forEach((t => t(window).trigger("rocket-jquery-load"))), await this.G();
+                    const t = new Event("rocket-pageshow");
+                    t.persisted = this.persisted, window.dispatchEvent(t), await this.G(), window.rocketonpageshow && window.rocketonpageshow({
+                        persisted: this.persisted
+                    }), this.windowLoaded = !0
+                }
+                m() {
+                    document.onreadystatechange && document.onreadystatechange(), window.onload && window.onload(), window.onpageshow && window.onpageshow({
+                        persisted: this.persisted
+                    })
+                }
+                I() {
+                    const t = new Map;
+                    document.write = document.writeln = function(e) {
+                        const i = document.currentScript;
+                        i || console.error("WPRocket unable to document.write this: " + e);
+                        const o = document.createRange(),
+                            s = i.parentElement;
+                        let n = t.get(i);
+                        void 0 === n && (n = i.nextSibling, t.set(i, n));
+                        const c = document.createDocumentFragment();
+                        o.setStart(c, 0), c.appendChild(o.createContextualFragment(e)), s.insertBefore(c, n)
+                    }
+                }
+                async G() {
+                    Date.now() - this.lastBreath > 45 && (await this.K(), this.lastBreath = Date.now())
+                }
+                async K() {
+                    return document.hidden ? new Promise((t => setTimeout(t))) : new Promise((t => requestAnimationFrame(t)))
+                }
+                N() {
+                    this.trash.forEach((t => t.remove()))
+                }
+                static run() {
+                    const t = new RocketLazyLoadScripts;
+                    t.p(t)
+                }
+            }
+            RocketLazyLoadScripts.run()
+        })();
+    </script>
+    <title>Incopro Is Now a Part of Corsearch</title>
+    <link rel="preload" data-rocket-preload as="image" href="https://corsearch.com/wp-content/themes/corsearch/img/feature-secondary.svg" fetchpriority="high">
+    <meta name="description" content="Incopro&#039;s advanced technology and years of industry expertise are factored into Corsearch&#039;s comprehensive brand protection offering.">
+    <link rel="stylesheet" href="/wp-content/themes/corsearch/css/styles.css?v=1739548923" media="all">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="pingback" href="https://corsearch.com/xmlrpc.php">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- wp head -->
+
+    <!-- Start VWO Async SmartCode -->
+    <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
+    <script type='text/javascript' data-cfasync="false" id='vwoCode'>
+        window._vwo_code || (function() {
+            var account_id = 817646,
+                version = 2.0,
+                settings_tolerance = 2000,
+                hide_element = 'body',
+                hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important',
+                /* DO NOT EDIT BELOW THIS LINE */
+                f = false,
+                w = window,
+                d = document,
+                v = d.querySelector('#vwoCode'),
+                cK = '_vwo_' + account_id + '_settings',
+                cc = {};
+            try {
+                var c = JSON.parse(localStorage.getItem('_vwo_' + account_id + '_config'));
+                cc = c && typeof c === 'object' ? c : {}
+            } catch (e) {}
+            var stT = cc.stT === 'session' ? w.sessionStorage : w.localStorage;
+            code = {
+                use_existing_jquery: function() {
+                    return typeof use_existing_jquery !== 'undefined' ? use_existing_jquery : undefined
+                },
+                library_tolerance: function() {
+                    return typeof library_tolerance !== 'undefined' ? library_tolerance : undefined
+                },
+                settings_tolerance: function() {
+                    return cc.sT || settings_tolerance
+                },
+                hide_element_style: function() {
+                    return '{' + (cc.hES || hide_element_style) + '}'
+                },
+                hide_element: function() {
+                    return typeof cc.hE === 'string' ? cc.hE : hide_element
+                },
+                getVersion: function() {
+                    return version
+                },
+                finish: function() {
+                    if (!f) {
+                        f = true;
+                        var e = d.getElementById('_vis_opt_path_hides');
+                        if (e) e.parentNode.removeChild(e)
+                    }
+                },
+                finished: function() {
+                    return f
+                },
+                load: function(e) {
+                    var t = this.getSettings(),
+                        n = d.createElement('script'),
+                        i = this;
+                    if (t) {
+                        n.textContent = t;
+                        d.getElementsByTagName('head')[0].appendChild(n);
+                        if (!w.VWO || VWO.caE) {
+                            stT.removeItem(cK);
+                            i.load(e)
+                        }
+                    } else {
+                        n.fetchPriority = 'high';
+                        n.src = e;
+                        n.type = 'text/javascript';
+                        n.onerror = function() {
+                            _vwo_code.finish()
+                        };
+                        d.getElementsByTagName('head')[0].appendChild(n)
+                    }
+                },
+                getSettings: function() {
+                    try {
+                        var e = stT.getItem(cK);
+                        if (!e) {
+                            return
+                        }
+                        e = JSON.parse(e);
+                        if (Date.now() > e.e) {
+                            stT.removeItem(cK);
+                            return
+                        }
+                        return e.s
+                    } catch (e) {
+                        return
+                    }
+                },
+                init: function() {
+                    if (d.URL.indexOf('__vwo_disable__') > -1) return;
+                    var e = this.settings_tolerance();
+                    w._vwo_settings_timer = setTimeout(function() {
+                        _vwo_code.finish();
+                        stT.removeItem(cK)
+                    }, e);
+                    var t = d.currentScript,
+                        n = d.createElement('style'),
+                        i = this.hide_element(),
+                        r = t && !t.async && i ? i + this.hide_element_style() : '',
+                        c = d.getElementsByTagName('head')[0];
+                    n.setAttribute('id', '_vis_opt_path_hides');
+                    v && n.setAttribute('nonce', v.nonce);
+                    n.setAttribute('type', 'text/css');
+                    if (n.styleSheet) n.styleSheet.cssText = r;
+                    else n.appendChild(d.createTextNode(r));
+                    c.appendChild(n);
+                    this.load('https://dev.visualwebsiteoptimizer.com/j.php?a=' + account_id + '&u=' + encodeURIComponent(d.URL) + '&vn=' + version)
+                }
+            };
+            w._vwo_code = code;
+            code.init();
+        })();
+    </script>
+    <!-- End VWO Async SmartCode -->
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <style>
+        img:is([sizes="auto" i], [sizes^="auto," i]) {
+            contain-intrinsic-size: 3000px 1500px
+        }
+    </style>
+
+    <!-- This site is optimized with the Yoast SEO Premium plugin v24.2 (Yoast SEO v24.2) - https://yoast.com/wordpress/plugins/seo/ -->
+    <link rel="canonical" href="https://corsearch.com/incopro/" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Incopro Is Now a Part of Corsearch" />
+    <meta property="og:description" content="Incopro&#039;s advanced technology and years of industry expertise are factored into Corsearch&#039;s comprehensive brand protection offering." />
+    <meta property="og:url" content="https://corsearch.com/incopro/" />
+    <meta property="og:site_name" content="Corsearch" />
+    <meta property="article:modified_time" content="2024-08-20T11:53:47+00:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Corsearch" />
+    <meta name="twitter:label1" content="Estimated reading time" />
+    <meta name="twitter:data1" content="4 minutes" />
+    <script type="application/ld+json" class="yoast-schema-graph">
+        {
+            "@context": "https://schema.org",
+            "@graph": [{
+                "@type": "WebPage",
+                "@id": "https://corsearch.com/incopro/",
+                "url": "https://corsearch.com/incopro/",
+                "name": "Incopro Is Now a Part of Corsearch",
+                "isPartOf": {
+                    "@id": "https://corsearch.com/#website"
+                },
+                "datePublished": "2023-03-07T16:20:26+00:00",
+                "dateModified": "2024-08-20T11:53:47+00:00",
+                "description": "Incopro's advanced technology and years of industry expertise are factored into Corsearch's comprehensive brand protection offering.",
+                "breadcrumb": {
+                    "@id": "https://corsearch.com/incopro/#breadcrumb"
+                },
+                "inLanguage": "en-GB",
+                "potentialAction": [{
+                    "@type": "ReadAction",
+                    "target": ["https://corsearch.com/incopro/"]
+                }]
+            }, {
+                "@type": "BreadcrumbList",
+                "@id": "https://corsearch.com/incopro/#breadcrumb",
+                "itemListElement": [{
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://corsearch.com/"
+                }, {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Incopro Is Now a Part of Corsearch"
+                }]
+            }, {
+                "@type": "WebSite",
+                "@id": "https://corsearch.com/#website",
+                "url": "https://corsearch.com/",
+                "name": "Corsearch",
+                "description": "Intelligent Trademark &amp; Brand Protection Solutions",
+                "publisher": {
+                    "@id": "https://corsearch.com/#organization"
+                },
+                "potentialAction": [{
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://corsearch.com/?s={search_term_string}"
+                    },
+                    "query-input": {
+                        "@type": "PropertyValueSpecification",
+                        "valueRequired": true,
+                        "valueName": "search_term_string"
+                    }
+                }],
+                "inLanguage": "en-GB"
+            }, {
+                "@type": "Organization",
+                "@id": "https://corsearch.com/#organization",
+                "name": "Corsearch",
+                "url": "https://corsearch.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "inLanguage": "en-GB",
+                    "@id": "https://corsearch.com/#/schema/logo/image/",
+                    "url": "https://corsearch.com/wp-content/uploads/2022/10/logo.svg",
+                    "contentUrl": "https://corsearch.com/wp-content/uploads/2022/10/logo.svg",
+                    "width": 596,
+                    "height": 66,
+                    "caption": "Corsearch"
+                },
+                "image": {
+                    "@id": "https://corsearch.com/#/schema/logo/image/"
+                },
+                "sameAs": ["https://x.com/Corsearch", "https://linkedin.com/company/corsearchinc"]
+            }]
+        }
+    </script>
+    <!-- / Yoast SEO Premium plugin. -->
+
+
+    <link rel='dns-prefetch' href='//platform-api.sharethis.com' />
+
+    <style id='safe-svg-svg-icon-style-inline-css'>
+        .safe-svg-cover {
+            text-align: center
+        }
+
+        .safe-svg-cover .safe-svg-inside {
+            display: inline-block;
+            max-width: 100%
+        }
+
+        .safe-svg-cover svg {
+            height: 100%;
+            max-height: 100%;
+            max-width: 100%;
+            width: 100%
+        }
+    </style>
+    <style id='classic-theme-styles-inline-css'>
+        /*! This file is auto-generated */
+
+        .wp-block-button__link {
+            color: #fff;
+            background-color: #32373c;
+            border-radius: 9999px;
+            box-shadow: none;
+            text-decoration: none;
+            padding: calc(.667em + 2px) calc(1.333em + 2px);
+            font-size: 1.125em
+        }
+
+        .wp-block-file__button {
+            background: #32373c;
+            color: #fff;
+            text-decoration: none
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js?ver=3.5.1" id="jquery-core-js"></script>
+    <script type="rocketlazyloadscript" data-rocket-src="https://code.jquery.com/jquery-migrate-3.3.1.min.js?ver=3.3.1" id="jquery-migrate-js" data-rocket-defer defer></script>
+    <link rel="https://api.w.org/" href="https://corsearch.com/wp-json/" />
+    <link rel="alternate" title="JSON" type="application/json" href="https://corsearch.com/wp-json/wp/v2/pages/5635" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://corsearch.com/xmlrpc.php?rsd" />
+    <meta name="generator" content="WordPress 6.7.1" />
+    <link rel='shortlink' href='https://corsearch.com/?p=5635' />
+    <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://corsearch.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcorsearch.com%2Fincopro%2F" />
+    <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://corsearch.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcorsearch.com%2Fincopro%2F&#038;format=xml" />
+    <!-- OneTrust Cookies Consent Notice start for corsearch.com -->
+    <script type="rocketlazyloadscript" data-rocket-src='https://cdn.cookielaw.org/scripttemplates/otSDKStub.js' data-rocket-type="text/javascript" charset="UTF-8" data-domain-script="309cbdc7-03c7-4d94-adda-eb5fd7c45e50" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+        function OptanonWrapper() {}
+    </script>
+    <!-- OneTrust Cookies Consent Notice end for corsearch.com -->
+
+
+
+    <link rel="icon" href="https://corsearch.com/wp-content/uploads/2024/02/cropped-Corsearch_Profile_Image_Square_Grey-V1-32x32.png" sizes="32x32" />
+    <link rel="icon" href="https://corsearch.com/wp-content/uploads/2024/02/cropped-Corsearch_Profile_Image_Square_Grey-V1-192x192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="https://corsearch.com/wp-content/uploads/2024/02/cropped-Corsearch_Profile_Image_Square_Grey-V1-180x180.png" />
+    <meta name="msapplication-TileImage" content="https://corsearch.com/wp-content/uploads/2024/02/cropped-Corsearch_Profile_Image_Square_Grey-V1-270x270.png" />
+    <!-- Google Tag Manager -->
+    <script type="rocketlazyloadscript">(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id='
+        + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-5XN9TSC');</script>
+    <!-- End Google Tag Manager -->
+    <meta name="generator" content="WP Rocket 3.18" data-wpr-features="wpr_delay_js wpr_defer_js wpr_oci wpr_desktop" />
+</head>
+
+<body class="page-template-default page page-id-5635">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XN9TSC"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="svg-sprites" style="overflow: hidden; position: absolute; width: 0; height: 0; top: -9999px; left: -9999px; clip-path: polygon(0px 0px, 0px 0px, 0px 0px, 0px 0px);">
+        <?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="0 0 128 128" fill="none" id="automize" xmlns="http://www.w3.org/2000/svg"><path d="M112 94.94 85.298 95l-.012-2.99 23.668-.047-.048-25.973L77 66.06v-2.99L111.927 63 112 94.94ZM42.773 59.952 16.06 60 16 28.071 51 28v2.975l-31.962.06.06 25.99 23.675-.048v2.975Z" fill="#00A8BF"/><path d="M79 43.94 49.06 44 49 14.085 78.94 14 79 43.94Zm-26.912-2.967H75.96V17.1H52.004l.084 23.874ZM79 79H49.06L49 49h29.951L79 79Zm-26.91-2.988h23.88v-23.94H52.09v23.94ZM79 114H49.06L49 84h29.94l.06 30Zm-26.922-2.98H75.97V87.03H52.077v23.99ZM90.66 58h-6.362v-2.991h3.772l.549-3.956 1.002-.242a14.903 14.903 0 0 0 4.63-1.941l.872-.555 3.174 2.412 2.518-2.545-2.386-3.208.548-.88a15.219 15.219 0 0 0 1.91-4.765l.227-1.013 3.914-.58V34.12l-3.926-.555-.227-1.014a15.267 15.267 0 0 0-1.933-4.68l-.55-.88 2.388-3.208-2.543-2.545-3.174 2.412-.86-.555a14.932 14.932 0 0 0-4.618-1.857l-1.002-.23-.585-3.992H84V14h6.576l.644 4.535c1.273.357 2.502.86 3.664 1.496l3.58-2.75 6.195 6.235-2.662 3.752a18.273 18.273 0 0 1 1.528 3.618l4.475.64v8.84l-4.487.652a18.402 18.402 0 0 1-1.504 3.702l2.721 3.619-6.17 6.272-3.58-2.75a17.8 17.8 0 0 1-3.664 1.544L90.659 58Z" fill="#13294E"/><path d="M86.25 45h-2.214v-2.955h2.213a6.193 6.193 0 0 0 2.426-.38 6.135 6.135 0 0 0 2.08-1.293 6.049 6.049 0 0 0 1.398-1.995 5.988 5.988 0 0 0 0-4.754 6.048 6.048 0 0 0-1.398-1.995 6.139 6.139 0 0 0-2.08-1.292 6.195 6.195 0 0 0-2.426-.381H84V27h2.213a9.168 9.168 0 0 1 6.233 2.748A8.948 8.948 0 0 1 95 36a8.948 8.948 0 0 1-2.555 6.252A9.168 9.168 0 0 1 86.213 45h.036ZM45 114h-6.584l-.645-4.487a18.742 18.742 0 0 1-3.662-1.532l-3.578 2.75-6.227-6.26 2.708-3.618a18.215 18.215 0 0 1-1.527-3.703L21 96.51v-8.876l4.473-.664c.37-1.286.878-2.528 1.515-3.703l-2.732-3.618 6.167-6.32 3.579 2.738a17.675 17.675 0 0 1 3.698-1.532L38.332 70h6.358v3.015h-3.758l-.548 3.932-.99.242a14.53 14.53 0 0 0-4.629 1.954l-.87.554-3.173-2.412-2.53 2.605 2.386 3.197-.548.88c-.9 1.437-1.55 3.02-1.92 4.68l-.215 1.013-3.925.555v3.618l3.913.555.238 1.013a14.99 14.99 0 0 0 1.933 4.68l.549.88-2.386 3.208 2.529 2.546 3.16-2.413.871.555a14.885 14.885 0 0 0 4.629 1.93l1.002.229.572 3.968h3.996L45 114Z" fill="#13294E"/><path d="M45 101h-2.213a9.17 9.17 0 0 1-6.233-2.748A8.949 8.949 0 0 1 34 92c0-2.332.916-4.573 2.554-6.252A9.169 9.169 0 0 1 42.787 83H45v2.955h-2.213a6.164 6.164 0 0 0-4.332 1.772 6.014 6.014 0 0 0-1.794 4.279c0 1.605.645 3.144 1.794 4.279a6.164 6.164 0 0 0 4.332 1.772H45V101Z" fill="#13294E"/><path d="m38.304 66-2.054-2.13 4.744-5.45L36 53.242 37.952 51 45 58.308 38.304 66ZM90.484 101 83 93.333 90.813 86 93 88.23l-5.537 5.202 5.297 5.425L90.484 101Z" fill="#00A8BF"/></symbol><symbol viewBox="0 0 128 128" fill="none" id="brand" xmlns="http://www.w3.org/2000/svg"><path d="M19.282 109.743a1.452 1.452 0 0 1-1.356-.881 1.428 1.428 0 0 1-.112-.555v-15.36a1.416 1.416 0 0 1 .418-1.044 1.434 1.434 0 0 1 1.05-.416H59.47c.359.033.692.198.934.462a1.43 1.43 0 0 1 0 1.934c-.242.265-.575.43-.934.463H20.726v13.924a1.429 1.429 0 0 1-.882 1.36 1.461 1.461 0 0 1-.562.113ZM110.853 109.743a1.45 1.45 0 0 1-1.021-.421 1.43 1.43 0 0 1-.423-1.015V94.382H73.01a1.454 1.454 0 0 1-1.106-.368 1.434 1.434 0 0 1-.348-1.64 1.434 1.434 0 0 1 .862-.782c.19-.063.392-.087.592-.068h37.843c.381 0 .746.15 1.017.416.27.267.424.628.427 1.007v15.36c0 .381-.152.746-.423 1.015a1.45 1.45 0 0 1-1.021.421ZM29.774 90.1c-.383 0-.75-.15-1.021-.42a1.43 1.43 0 0 1-.423-1.015v-11.9c0-.38.152-.746.423-1.015.27-.27.638-.42 1.02-.42h29.623c.383 0 .75.15 1.021.42a1.431 1.431 0 0 1 0 2.03c-.27.269-.638.42-1.02.42h-28.18v10.465c0 .38-.151.746-.422 1.015-.271.27-.638.42-1.021.42ZM100.362 89.868a1.439 1.439 0 0 1-1.334-.876 1.415 1.415 0 0 1-.11-.548V78.176H71.503c-.383 0-.75-.152-1.021-.42a1.431 1.431 0 0 1 0-2.03c.27-.27.638-.421 1.021-.421h28.858c.377.013.734.173.993.447.259.273.399.637.389 1.013v11.704a1.42 1.42 0 0 1-.41.974c-.258.26-.606.412-.972.425ZM89.87 74.385c-.382 0-.75-.152-1.02-.42a1.431 1.431 0 0 1-.423-1.016V62.815H40.759V72.95c0 .38-.152.746-.423 1.015a1.448 1.448 0 0 1-2.042 0 1.431 1.431 0 0 1-.423-1.015V61.38c0-.38.152-.746.423-1.015.27-.27.638-.42 1.02-.42H89.92a1.44 1.44 0 0 1 1.017.42 1.423 1.423 0 0 1 .415 1.015v11.57a1.427 1.427 0 0 1-.436 1.028 1.447 1.447 0 0 1-1.045.407Z" fill="#13294E"/><path d="M65.222 104.467c-.383 0-.75-.151-1.021-.42a1.432 1.432 0 0 1-.423-1.015v-2.147c0-.381.152-.746.423-1.015a1.448 1.448 0 0 1 2.042 0c.27.269.423.634.423 1.015v2.147c0 .38-.152.746-.423 1.015-.27.269-.638.42-1.021.42Zm0-9.312a1.461 1.461 0 0 1-1.018-.424 1.443 1.443 0 0 1-.426-1.011v-2.147c0-.38.152-.746.423-1.015a1.448 1.448 0 0 1 2.042 0c.27.27.423.634.423 1.015v2.147a1.428 1.428 0 0 1-.419 1.023 1.444 1.444 0 0 1-1.025.425v-.013Zm0-9.311a1.461 1.461 0 0 1-1.018-.424 1.443 1.443 0 0 1-.426-1.012v-2.147c0-.38.152-.746.423-1.015a1.448 1.448 0 0 1 2.042 0c.27.27.423.634.423 1.015v2.147c0 .38-.152.746-.423 1.015-.27.27-.638.42-1.021.42Zm0-9.325c-.381 0-.746-.15-1.017-.416a1.431 1.431 0 0 1-.427-1.007v-2.159c0-.38.152-.746.423-1.015a1.448 1.448 0 0 1 2.042 0c.27.27.423.634.423 1.015v2.16a1.416 1.416 0 0 1-.892 1.318 1.44 1.44 0 0 1-.552.104Zm0-9.311a1.452 1.452 0 0 1-1.04-.438 1.435 1.435 0 0 1-.404-1.047v-2.098c0-.38.152-.746.423-1.015a1.448 1.448 0 0 1 2.042 0c.27.27.423.635.423 1.015v2.098a1.428 1.428 0 0 1-.88 1.37c-.178.076-.37.115-.564.115Z" fill="#13294E"/><path d="M77.997 55.221a1.438 1.438 0 0 1-.667-.16l-10.553-5.52-10.565 5.52a1.476 1.476 0 0 1-1.518-.11 1.424 1.424 0 0 1-.568-1.41l2.012-11.68-8.541-8.281a1.408 1.408 0 0 1-.358-1.46 1.424 1.424 0 0 1 1.16-.982l11.8-1.705 5.282-10.625a1.44 1.44 0 0 1 1.296-.802 1.45 1.45 0 0 1 1.296.802l5.283 10.625 11.8 1.705a1.474 1.474 0 0 1 1.234.982 1.403 1.403 0 0 1-.37 1.46l-8.541 8.28 2.024 11.68a1.452 1.452 0 0 1-.58 1.411c-.27.19-.596.285-.926.27Zm-26.29-21.666 6.986 6.785a1.423 1.423 0 0 1 .42 1.226l-1.654 9.57 8.64-4.515a1.451 1.451 0 0 1 1.345 0l8.64 4.515-1.642-9.57a1.404 1.404 0 0 1 .408-1.227l6.998-6.784-9.665-1.386a1.473 1.473 0 0 1-1.086-.785l-4.32-8.711-4.32 8.698a1.462 1.462 0 0 1-1.086.785l-9.664 1.399Z" fill="#E56919"/><path d="M37.315 44.867a1.525 1.525 0 0 1-.852-.27 1.424 1.424 0 0 1-.568-1.411l1.407-8.196-5.998-5.815a1.434 1.434 0 0 1-.37-1.476 1.434 1.434 0 0 1 1.172-.978l8.294-1.226 3.703-7.472a1.414 1.414 0 0 1 1.235-.797 1.45 1.45 0 0 1 1.234.797l4.048 8.146c.117.334.106.7-.031 1.025a1.44 1.44 0 0 1-.712.743 1.452 1.452 0 0 1-1.849-.54l-2.752-5.534-2.74 5.533a1.437 1.437 0 0 1-1.086.785l-6.172.884 4.444 4.306a1.446 1.446 0 0 1 .42 1.227l-1.05 6.134 5.493-2.87a1.452 1.452 0 0 1 1.69.245l3.703 3.68a1.443 1.443 0 0 1 0 2.025 1.432 1.432 0 0 1-1.57.312 1.432 1.432 0 0 1-.466-.313l-2.987-2.968-7.146 3.68a1.433 1.433 0 0 1-.494.344ZM96.807 45.075a1.451 1.451 0 0 1-.666-.172l-7.357-3.815-3.37 3.312a1.441 1.441 0 0 1-1.052.611 1.45 1.45 0 0 1-1.149-.408 1.435 1.435 0 0 1-.424-1.136 1.43 1.43 0 0 1 .602-1.054l4.122-4.049a1.447 1.447 0 0 1 1.679-.257l5.665 2.969-1.074-6.27a1.44 1.44 0 0 1 .407-1.226l4.58-4.442-6.332-.908a1.474 1.474 0 0 1-1.086-.785l-2.827-5.705-2.826 5.607a1.452 1.452 0 0 1-1.849.54 1.428 1.428 0 0 1-.743-1.767l4.122-8.318A1.44 1.44 0 0 1 88.525 17a1.451 1.451 0 0 1 1.296.802l3.79 7.631 8.466 1.227a1.464 1.464 0 0 1 1.235.982 1.434 1.434 0 0 1-.371 1.46l-6.134 5.95 1.456 8.38a1.427 1.427 0 0 1-.344 1.157 1.443 1.443 0 0 1-1.112.486ZM116 108.908H12V112h104v-3.092Z" fill="#13294E"/></symbol><symbol viewBox="0 0 128 128" fill="none" id="legal" xmlns="http://www.w3.org/2000/svg"><path d="M92.03 111H35.946v-3.153a11.49 11.49 0 0 1 3.437-8.17 11.818 11.818 0 0 1 8.285-3.39h32.64a11.818 11.818 0 0 1 8.285 3.39 11.49 11.49 0 0 1 3.437 8.17V111Zm-53.581-2.468h51.078v-.685a9.03 9.03 0 0 0-2.7-6.429 9.287 9.287 0 0 0-6.52-2.663H47.669c-2.445 0-4.79.958-6.519 2.663a9.03 9.03 0 0 0-2.7 6.429v.685Z" fill="#13294E"/><path d="M73.902 98.755h-19.84v-8.89h19.84v8.89Zm-17.326-2.467H71.4v-3.956H56.576v3.956Z" fill="#13294E"/><path d="M69.316 92.332H58.66V34.344l1.784.826a8.48 8.48 0 0 0 7.088 0l1.784-.826v57.988Zm-8.154-2.468h5.652V38.052a10.92 10.92 0 0 1-5.652 0v51.812ZM104.123 32.962H70.717l.838-1.759a8.11 8.11 0 0 0 0-6.978l-.838-1.76h33.406c.72-.033 1.44.078 2.115.326.676.249 1.293.63 1.815 1.12.522.491.937 1.081 1.221 1.735.283.653.43 1.357.43 2.068a5.205 5.205 0 0 1-1.651 3.802 5.338 5.338 0 0 1-1.815 1.12 5.393 5.393 0 0 1-2.115.326Zm-29.646-2.467h29.646a2.84 2.84 0 0 0 1.878-.876 2.764 2.764 0 0 0 .764-1.905c0-.708-.273-1.389-.764-1.905a2.84 2.84 0 0 0-1.878-.876H74.477c.495 1.822.495 3.74 0 5.562ZM57.259 32.962H23.853a5.396 5.396 0 0 1-2.115-.325 5.338 5.338 0 0 1-1.815-1.12 5.253 5.253 0 0 1-1.22-1.735 5.192 5.192 0 0 1 0-4.136c.283-.654.699-1.244 1.22-1.735a5.34 5.34 0 0 1 1.815-1.12 5.397 5.397 0 0 1 2.115-.326H57.26l-.838 1.76a8.11 8.11 0 0 0 0 6.978l.838 1.76Zm-33.406-8.029a2.863 2.863 0 0 0-2.116.747c-.282.261-.507.576-.66.926a2.754 2.754 0 0 0 .66 3.141 2.863 2.863 0 0 0 2.116.747H53.5a10.6 10.6 0 0 1 0-5.56H23.853Z" fill="#13294E"/><path d="m72.082 25.335-.527-1.11a8.304 8.304 0 0 0-3.093-3.436 8.468 8.468 0 0 0-4.474-1.276 8.467 8.467 0 0 0-4.475 1.276 8.304 8.304 0 0 0-3.092 3.436l-.527 1.11-2.263-1.051.527-1.11a10.746 10.746 0 0 1 4.003-4.5A10.959 10.959 0 0 1 63.988 17c2.064 0 4.086.58 5.827 1.674a10.746 10.746 0 0 1 4.003 4.5l.527 1.11-2.263 1.05ZM67.472 37.934l-1.065-2.244 1.197-.52a8.324 8.324 0 0 0 4.023-3.967l.527-1.11 2.263 1.051-.527 1.11a10.822 10.822 0 0 1-5.22 5.148l-1.198.532ZM60.516 37.934l-1.197-.532a10.822 10.822 0 0 1-5.22-5.148l-.528-1.11 2.263-1.05.527 1.11a8.324 8.324 0 0 0 4.023 3.966l1.197.52-1.065 2.244ZM36.868 62.624H17.783l-1.198-1.606 9.58-29.661h2.394l9.579 29.66-1.27 1.607Zm-17.373-2.468h15.65l-7.82-24.348-7.83 24.348ZM110.194 62.624H91.108l-1.197-1.606 9.578-29.661h2.395l9.579 29.66-1.269 1.607ZM92.82 60.156h15.661l-7.83-24.348-7.83 24.348Z" fill="#13294E"/><path d="M27.326 78.529a17.52 17.52 0 0 1-12.247-5.042A17.037 17.037 0 0 1 10 61.396v-1.24h34.723v1.24a17.037 17.037 0 0 1-5.104 12.116 17.522 17.522 0 0 1-12.293 5.017ZM12.514 62.624a14.59 14.59 0 0 0 4.76 9.554 14.987 14.987 0 0 0 10.057 3.864c3.726 0 7.315-1.38 10.059-3.864a14.59 14.59 0 0 0 4.759-9.554H12.514ZM100.651 78.529a17.522 17.522 0 0 1-12.278-5.025 17.038 17.038 0 0 1-5.096-12.108v-1.24H118v1.24a17.034 17.034 0 0 1-5.087 12.1 17.52 17.52 0 0 1-12.262 5.033ZM85.828 62.624a14.59 14.59 0 0 0 4.758 9.554 14.987 14.987 0 0 0 10.059 3.864c3.725 0 7.314-1.38 10.058-3.864a14.59 14.59 0 0 0 4.759-9.554H85.828Z" fill="#00A8BF"/></symbol><symbol viewBox="0 0 128 128" fill="none" id="policy" xmlns="http://www.w3.org/2000/svg"><path d="M63.355 82.708c13.905 0 25.177-11.31 25.177-25.261 0-13.952-11.272-25.261-25.177-25.261s-25.178 11.31-25.178 25.26c0 13.952 11.273 25.262 25.178 25.262ZM94.266 79.263l18.31 18.42a4.887 4.887 0 0 1 1.054 5.31 4.853 4.853 0 0 1-1.054 1.579 4.857 4.857 0 0 1-3.433 1.428 4.836 4.836 0 0 1-3.433-1.428l-18.335-18.42a4.867 4.867 0 0 1-1.423-3.444 4.881 4.881 0 0 1 1.423-3.445 4.852 4.852 0 0 1 3.445-1.44 4.838 4.838 0 0 1 3.446 1.44ZM81.892 73.737l5.507 5.526" stroke="#13294E" stroke-width="2.88" stroke-linejoin="round"/><path d="M13 23h61.81M13 34.482h25.177M13 45.965h18.31M13 57.447h16.022M13 68.929h18.31M13 80.411h25.177M13 91.893h61.81M13 103.376h61.81" stroke="#13294E" stroke-width="2.88" stroke-miterlimit="10"/><path d="m53.734 58.798 5.15 5.155 14.758-14.807" stroke="#C4D400" stroke-width="2.8"/></symbol><symbol viewBox="0 0 128 128" fill="none" id="security" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#ea)"><path d="M63.831 97.856a19.727 19.727 0 0 1-11.027-3.344 19.953 19.953 0 0 1-7.325-8.954 20.127 20.127 0 0 1-1.154-11.544 20.035 20.035 0 0 1 5.406-10.245 19.79 19.79 0 0 1 10.144-5.492 19.696 19.696 0 0 1 11.463 1.111 19.867 19.867 0 0 1 8.917 7.342 20.086 20.086 0 0 1-2.418 25.235 19.782 19.782 0 0 1-14.006 5.89Zm-.076-37.03c-3.342 0-6.608 1-9.386 2.87a16.995 16.995 0 0 0-6.222 7.64 17.141 17.141 0 0 0-.96 9.836 17.062 17.062 0 0 0 4.627 8.715c2.363 2.38 5.374 4 8.652 4.656 3.277.655 6.674.317 9.76-.973a16.922 16.922 0 0 0 7.58-6.274 17.113 17.113 0 0 0-2.114-21.485 16.839 16.839 0 0 0-11.937-4.984ZM44.53 47.452h-2.942v-8.225a21.101 21.101 0 0 1 1.528-8.067 20.976 20.976 0 0 1 4.487-6.857 20.702 20.702 0 0 1 6.729-4.64A20.571 20.571 0 0 1 62.316 18h3.073a20.843 20.843 0 0 1 14.748 6.082 21.163 21.163 0 0 1 6.22 14.782v8.467h-2.942v-8.467a18.187 18.187 0 0 0-5.359-12.685 17.912 17.912 0 0 0-12.666-5.214h-3.063a17.96 17.96 0 0 0-12.636 5.416 18.235 18.235 0 0 0-5.183 12.813l.022 8.258Z" fill="#13294E"/><path d="M77.694 47.375H74.75v-7.248a10.318 10.318 0 0 0-2.999-7.247 10.162 10.162 0 0 0-7.201-2.998h-1.2a10.163 10.163 0 0 0-7.188 3.03 10.319 10.319 0 0 0-2.968 7.26v7.247h-2.943v-7.237c0-3.502 1.375-6.862 3.826-9.345a13.105 13.105 0 0 1 9.252-3.91h1.188a13.082 13.082 0 0 1 9.274 3.853 13.283 13.283 0 0 1 3.87 9.325l.032 7.27Z" fill="#13294E"/><path d="M64.06 91.706c-.39 0-.764-.156-1.04-.434a1.488 1.488 0 0 1-.431-1.049V80.44c0-.394.154-.772.43-1.052a1.476 1.476 0 0 1 1.606-.331 1.46 1.46 0 0 1 .797.803c.074.18.11.374.11.57v9.794c0 .394-.156.77-.431 1.049-.276.278-.65.434-1.04.434Z" fill="#00A8BF"/><path d="M64.049 81.23a7.209 7.209 0 0 1-4.03-1.219 7.29 7.29 0 0 1-2.68-3.269 7.354 7.354 0 0 1-.424-4.218 7.32 7.32 0 0 1 1.972-3.745 7.231 7.231 0 0 1 3.705-2.01 7.196 7.196 0 0 1 4.188.403 7.259 7.259 0 0 1 3.26 2.68 7.342 7.342 0 0 1 1.234 4.053c0 1.935-.76 3.792-2.113 5.164a7.242 7.242 0 0 1-5.112 2.16Zm0-11.64c-.865 0-1.71.26-2.429.745a4.386 4.386 0 0 0-1.604 1.982 4.424 4.424 0 0 0 .974 4.795 4.328 4.328 0 0 0 4.773.91 4.367 4.367 0 0 0 1.942-1.648c.472-.73.716-1.586.703-2.458a4.409 4.409 0 0 0-1.315-3.057 4.342 4.342 0 0 0-3.066-1.247l.022-.022Z" fill="#00A8BF"/><path d="M7.967 88.598a7.936 7.936 0 0 1-5.626-2.343A8.058 8.058 0 0 1 0 80.593a8.363 8.363 0 0 1 2.548-5.726 8.238 8.238 0 0 1 5.79-2.312 7.58 7.58 0 0 1 2.994.614c.946.406 1.802 1 2.514 1.749a7.694 7.694 0 0 1 1.633 2.602c.364.97.53 2.004.487 3.04a8.079 8.079 0 0 1-.606 3.083 8.03 8.03 0 0 1-1.735 2.612 7.962 7.962 0 0 1-2.597 1.74 7.913 7.913 0 0 1-3.061.603Zm.381-13.078a5.34 5.34 0 0 0-3.708 1.449 5.42 5.42 0 0 0-1.697 3.624c0 1.34.528 2.624 1.468 3.572a4.994 4.994 0 0 0 3.545 1.48c1.33 0 2.604-.533 3.545-1.48a5.071 5.071 0 0 0 1.468-3.572 4.743 4.743 0 0 0-1.217-3.548 4.646 4.646 0 0 0-3.404-1.525ZM15.617 66.142a7.896 7.896 0 0 1-3.745-.94 7.967 7.967 0 0 1-2.863-2.607 8.06 8.06 0 0 1-.748-7.507 8.001 8.001 0 0 1 2.292-3.128 7.919 7.919 0 0 1 3.484-1.671 7.886 7.886 0 0 1 3.855.18 7.933 7.933 0 0 1 3.316 1.99 8.059 8.059 0 0 1 2.324 5.666 8.059 8.059 0 0 1-2.324 5.667 7.867 7.867 0 0 1-2.562 1.739c-.96.403-1.989.61-3.029.61Zm-.032-13.002a4.99 4.99 0 0 0-3.177 1.156 5.058 5.058 0 0 0-1.727 2.924 5.085 5.085 0 0 0 .505 3.365 5.027 5.027 0 0 0 2.509 2.278c1.072.445 2.264.5 3.373.158a5.017 5.017 0 0 0 2.708-2.034 5.081 5.081 0 0 0-.639-6.376 4.978 4.978 0 0 0-1.63-1.094 4.945 4.945 0 0 0-1.922-.377ZM15.704 111a7.908 7.908 0 0 1-4.422-1.341 8.001 8.001 0 0 1-2.939-3.591 8.072 8.072 0 0 1-.463-4.63 8.036 8.036 0 0 1 2.168-4.11 7.938 7.938 0 0 1 4.07-2.2 7.9 7.9 0 0 1 4.597.448 7.968 7.968 0 0 1 3.575 2.946 8.06 8.06 0 0 1 1.348 4.451c0 2.123-.835 4.16-2.321 5.664A7.936 7.936 0 0 1 15.704 111Zm0-13.068a5.005 5.005 0 0 0-3.542 1.494 5.072 5.072 0 0 0-1.422 3.564c.01 1.33.54 2.603 1.476 3.541a4.993 4.993 0 0 0 3.522 1.472 4.993 4.993 0 0 0 3.53-1.45 5.087 5.087 0 0 0 1.08-5.512 5.044 5.044 0 0 0-1.853-2.265 4.987 4.987 0 0 0-2.79-.844ZM120.055 88.368a7.926 7.926 0 0 1-5.625-2.337 8.046 8.046 0 0 1-2.341-5.658 7.735 7.735 0 0 1 .469-3.029 7.696 7.696 0 0 1 1.608-2.603 7.617 7.617 0 0 1 2.489-1.763 7.58 7.58 0 0 1 2.975-.643 8.245 8.245 0 0 1 5.796 2.292A8.374 8.374 0 0 1 128 80.34a8.056 8.056 0 0 1-2.326 5.669 7.936 7.936 0 0 1-5.619 2.359ZM119.63 75.3a4.646 4.646 0 0 0-3.392 1.526 4.73 4.73 0 0 0-1.218 3.536c.06 1.3.615 2.528 1.55 3.427a5.005 5.005 0 0 0 3.469 1.4 5.005 5.005 0 0 0 3.469-1.4 5.08 5.08 0 0 0 1.549-3.427 5.428 5.428 0 0 0-1.711-3.621 5.351 5.351 0 0 0-3.716-1.441ZM112.328 65.955a7.91 7.91 0 0 1-4.422-1.341 8.004 8.004 0 0 1-2.939-3.59 8.08 8.08 0 0 1-.463-4.631 8.04 8.04 0 0 1 2.168-4.11 7.946 7.946 0 0 1 3.312-2.01 7.898 7.898 0 0 1 3.861-.2 7.929 7.929 0 0 1 3.499 1.657 8.01 8.01 0 0 1 2.31 3.124 8.08 8.08 0 0 1 .576 3.852 8.056 8.056 0 0 1-1.294 3.671A7.987 7.987 0 0 1 116.077 65a7.912 7.912 0 0 1-3.749.955Zm-3.563-11.574a5.07 5.07 0 0 0-1.091 5.506 5.041 5.041 0 0 0 1.847 2.268 4.984 4.984 0 0 0 5.572 0 5.046 5.046 0 0 0 1.846-2.268 5.09 5.09 0 0 0 .284-2.92 5.061 5.061 0 0 0-1.374-2.586 4.995 4.995 0 0 0-3.542-1.477 4.995 4.995 0 0 0-3.542 1.477ZM112.415 110.813a7.928 7.928 0 0 1-5.059-1.81 8.042 8.042 0 0 1-2.77-4.633 8.075 8.075 0 0 1 .776-5.353 7.986 7.986 0 0 1 3.97-3.64 7.91 7.91 0 0 1 5.361-.277 7.971 7.971 0 0 1 4.318 3.214 8.077 8.077 0 0 1 1.315 5.244 8.056 8.056 0 0 1-2.287 4.894 7.899 7.899 0 0 1-2.577 1.748 7.859 7.859 0 0 1-3.047.613Zm0-13.067a4.985 4.985 0 0 0-2.785.855 5.044 5.044 0 0 0-1.844 2.271 5.09 5.09 0 0 0-.28 2.92c.196.98.675 1.88 1.378 2.585.445.543.998.987 1.623 1.303a4.984 4.984 0 0 0 5.793-.947 5.084 5.084 0 0 0 .931-5.839 5.037 5.037 0 0 0-1.296-1.633 4.944 4.944 0 0 0-3.541-1.515h.021Z" fill="#13294E"/><path d="M94.216 74.06h-2.943v-4.92a1.481 1.481 0 0 1 .428-1.052 1.46 1.46 0 0 1 1.043-.43h8.719l5.187-6.019 2.18 1.955-5.634 6.523a1.45 1.45 0 0 1-1.09.505h-7.901l.01 3.437ZM106.683 99.14l-5.22-5.996h-8.719a1.45 1.45 0 0 1-1.04-.427 1.473 1.473 0 0 1-.431-1.044V80.406a1.493 1.493 0 0 1 .427-1.055 1.472 1.472 0 0 1 1.044-.438h20.87v2.965H94.216v8.302h7.879a1.45 1.45 0 0 1 1.09.505l5.656 6.5-2.158 1.955ZM36.705 74.169h-2.92v-3.46h-7.88a1.485 1.485 0 0 1-1.09-.504l-5.656-6.501 2.18-1.955 5.21 5.996h8.718c.39 0 .764.156 1.04.434s.431.655.431 1.048l-.033 4.942ZM21.393 99.261l-2.18-1.944 5.635-6.522a1.462 1.462 0 0 1 1.09-.506h7.89v-8.301H14.43v-2.965H35.31c.389 0 .761.154 1.037.43.275.276.432.65.434 1.041v11.278c0 .393-.154.77-.43 1.048s-.65.434-1.04.434h-8.72l-5.198 6.007ZM94.194 62.639H91.25v-3.745a3.393 3.393 0 0 0-.988-2.392 3.345 3.345 0 0 0-2.38-.98l-47.843.089a3.366 3.366 0 0 0-2.37 1 3.418 3.418 0 0 0-.986 2.393v3.756h-2.9v-3.745a6.383 6.383 0 0 1 1.837-4.495 6.286 6.286 0 0 1 4.452-1.874l47.854-.088c1.67 0 3.272.667 4.454 1.854a6.382 6.382 0 0 1 1.856 4.482l-.043 3.745ZM87.982 108.277l-47.855.099a6.267 6.267 0 0 1-4.478-1.84 6.35 6.35 0 0 1-1.378-2.061 6.389 6.389 0 0 1-.486-2.436v-4.008h2.942v3.997c.003.898.36 1.759.99 2.393.632.634 1.486.99 2.378.99l47.843-.099a3.356 3.356 0 0 0 2.374-.998c.63-.636.983-1.497.983-2.395v-3.998h2.942v4.009a6.372 6.372 0 0 1-1.83 4.472 6.278 6.278 0 0 1-4.425 1.875Z" fill="#13294E"/></g><defs><clipPath id="ea"><path fill="#fff" transform="translate(0 18)" d="M0 0h128v93H0z"/></clipPath></defs></symbol><symbol viewBox="0 0 128 128" fill="none" id="source" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#fa)"><path d="M88.105 109.599h-3.034v-6.386h-6.384l-.012-3.018 9.43-.011v9.415Z" fill="#E56919"/><path d="M68.377 113a21.687 21.687 0 0 1-15.298-6.301 21.616 21.616 0 0 1-6.383-15.243h3.024a18.572 18.572 0 0 0 3.723 11.066 18.62 18.62 0 0 0 9.597 6.67 18.655 18.655 0 0 0 11.687-.357 18.623 18.623 0 0 0 9.17-7.243l2.527 1.655a21.603 21.603 0 0 1-7.79 7.152A21.645 21.645 0 0 1 68.377 113ZM56.995 82.761h-9.418l-.012-9.403H50.6v6.385h6.395v3.018Z" fill="#E56919"/><path d="M88.985 91.523h-3.034a18.562 18.562 0 0 0-3.71-11.082 18.611 18.611 0 0 0-9.603-6.68 18.64 18.64 0 0 0-11.698.363 18.607 18.607 0 0 0-9.167 7.263l-2.527-1.666a21.641 21.641 0 0 1 10.67-8.438 21.678 21.678 0 0 1 13.606-.41 21.646 21.646 0 0 1 11.16 7.78 21.589 21.589 0 0 1 4.303 12.893v-.023Z" fill="#E56919"/><path d="m106.593 37.938-69.462.136a6.338 6.338 0 0 0-4.482 1.846 6.318 6.318 0 0 0-1.857 4.472l.09 40.982a6.301 6.301 0 0 1-1.85 4.46 6.322 6.322 0 0 1-8.933 0 6.301 6.301 0 0 1-1.85-4.46l-.124-63.067c0-.835.33-1.635.92-2.226a3.161 3.161 0 0 1 2.227-.928h20.665a3.14 3.14 0 0 1 1.76.53l7.094 4.696a6.347 6.347 0 0 0 3.497 1.059l47.567-.102a3.162 3.162 0 0 1 2.918 1.947c.159.382.241.793.241 1.207v6.655h3.158v-6.667a6.303 6.303 0 0 0-1.854-4.452 6.321 6.321 0 0 0-4.463-1.843l-47.5.101a3.105 3.105 0 0 1-1.748-.53l-7.151-4.707A6.369 6.369 0 0 0 41.97 16H21.305a6.327 6.327 0 0 0-4.479 1.871A6.305 6.305 0 0 0 15 22.363l.124 63.067a9.446 9.446 0 0 0 2.655 6.9 9.475 9.475 0 0 0 6.815 2.887 9.486 9.486 0 0 0 6.814-2.887 9.458 9.458 0 0 0 2.655-6.9l-.079-40.97a3.148 3.148 0 0 1 1.947-2.924c.384-.16.796-.241 1.212-.241l69.45-.136c.824 0 1.616.322 2.206.896.59.574.932 1.356.952 2.179l.079 40.982a6.29 6.29 0 0 1-1.842 4.463 6.31 6.31 0 0 1-4.463 1.855h-9.678v3.143h9.7a9.494 9.494 0 0 0 6.69-2.79A9.46 9.46 0 0 0 113 85.194l-.079-40.971a6.304 6.304 0 0 0-1.862-4.45 6.322 6.322 0 0 0-4.466-1.835Z" fill="#13294E"/><path d="M41.203 91.658H24.42a1.58 1.58 0 0 0-1.58 1.577 1.574 1.574 0 0 0 .976 1.457c.191.079.396.12.604.12h16.784v-3.154ZM100.254 28.49l-75.768.157a1.582 1.582 0 0 0-1.469.971c-.08.192-.121.398-.121.606l.113 55.184h3.158l-.101-53.641 72.62-.135v3.513h3.169v-5.079a1.582 1.582 0 0 0-.992-1.46 1.586 1.586 0 0 0-.609-.116Z" fill="#13294E"/></g><defs><clipPath id="fa"><path fill="#fff" transform="translate(15 16)" d="M0 0h98v97H0z"/></clipPath></defs></symbol><symbol viewBox="0 0 128 128" fill="none" id="time" xmlns="http://www.w3.org/2000/svg"><path d="M74.288 110.941H40.8l-.143-73.228a5.41 5.41 0 0 0-1.607-3.85 5.523 5.523 0 0 0-7.759 0 5.41 5.41 0 0 0-1.607 3.85l.084 42.153a8.733 8.733 0 0 1-2.645 6.015 8.864 8.864 0 0 1-6.11 2.506 8.867 8.867 0 0 1-6.152-2.408 8.736 8.736 0 0 1-2.742-5.971L12 18.118 70.135 18v12.65h-3.332v-9.331l-51.459.094.107 58.583a5.439 5.439 0 0 0 1.696 3.693 5.52 5.52 0 0 0 3.796 1.51 5.52 5.52 0 0 0 3.797-1.51 5.438 5.438 0 0 0 1.696-3.693l-.096-42.142a8.734 8.734 0 0 1 2.696-5.988 8.865 8.865 0 0 1 6.129-2.454c2.285 0 4.482.88 6.128 2.454a8.734 8.734 0 0 1 2.696 5.988l.143 69.839h30.156v3.248Z" fill="#13294E"/><path d="M103.54 49.89h-3.344V36.437a4.236 4.236 0 0 0-1.26-2.999 4.3 4.3 0 0 0-3.024-1.241l-60.694.118v-3.26l60.694-.118c2.016 0 3.95.793 5.377 2.206a7.528 7.528 0 0 1 2.239 5.33l.012 13.417ZM42.406 85.383l-21.457.04.006 3.308 21.457-.041-.006-3.307Z" fill="#13294E"/><path d="M112.68 101.15H82.666v-5.044c.039-1.836.568-3.63 1.534-5.196a10.417 10.417 0 0 1 3.964-3.721l4.094-2.362c.321-.148.593-.384.784-.68a1.833 1.833 0 0 0-.784-2.663l-4.094-2.362a10.451 10.451 0 0 1-3.95-3.72 10.348 10.348 0 0 1-1.536-5.185v-5.115l30.014-.059v5.103a10.31 10.31 0 0 1-1.528 5.195 10.402 10.402 0 0 1-3.959 3.722l-4.093 2.362a1.926 1.926 0 0 0-1.083 1.665 1.951 1.951 0 0 0 1.083 1.666l4.105 2.362a10.449 10.449 0 0 1 3.95 3.72 10.361 10.361 0 0 1 1.537 5.186l-.024 5.126Zm-27.11-2.835h24.194v-2.256a7.531 7.531 0 0 0-1.154-3.757 7.61 7.61 0 0 0-2.892-2.68l-4.106-2.362a4.745 4.745 0 0 1-1.796-1.735 4.698 4.698 0 0 1 0-4.798 4.744 4.744 0 0 1 1.796-1.735l4.094-2.362a7.553 7.553 0 0 0 2.88-2.682 7.469 7.469 0 0 0 1.13-3.755v-2.268H85.522v2.22a7.518 7.518 0 0 0 1.15 3.76 7.594 7.594 0 0 0 2.897 2.678l4.105 2.362a4.745 4.745 0 0 1 1.796 1.734 4.698 4.698 0 0 1 0 4.8 4.744 4.744 0 0 1-1.796 1.734l-4.093 2.362a7.605 7.605 0 0 0-2.884 2.688 7.53 7.53 0 0 0-1.139 3.76l.012 2.292Z" fill="#C4D400"/><path d="m112.727 67.913-30.251.06a3.19 3.19 0 0 1-2.246-.912 3.142 3.142 0 0 1-.944-2.219v-9.224l36.619-.07v9.224a3.137 3.137 0 0 1-1.963 2.906 3.184 3.184 0 0 1-1.215.235Zm-30.513-9.437v6.355a.27.27 0 0 0 .177.254.276.276 0 0 0 .109.017l30.251-.059a.275.275 0 0 0 .274-.271v-6.355l-30.811.06ZM116 110.634l-36.618.071v-9.225a3.141 3.141 0 0 1 .918-2.229 3.19 3.19 0 0 1 2.235-.936h30.252a3.19 3.19 0 0 1 2.246.911 3.14 3.14 0 0 1 .943 2.219l.024 9.189Zm-33.715-2.799h30.799v-6.414a.257.257 0 0 0-.167-.254.257.257 0 0 0-.106-.017H82.559a.259.259 0 0 0-.256.165.259.259 0 0 0-.018.106v6.414Z" fill="#C4D400"/><path d="m71.267 86.592-18.494.035.006 3.059 18.494-.035-.006-3.06ZM71.291 98.887l-18.494.035.006 3.059 18.494-.035-.006-3.06ZM71.279 92.698l-18.494.035.006 3.06 18.494-.036-.006-3.06Z" fill="#13294E"/><path d="m71.291 98.887-18.494.035.006 3.059 18.494-.035-.006-3.06ZM71.279 92.698l-18.494.035.006 3.06 18.494-.036-.006-3.06ZM71.267 86.592l-18.494.035.006 3.059 18.494-.035-.006-3.06ZM71.255 80.474l-18.493.035.006 3.059 18.493-.035-.006-3.06ZM71.244 74.367l-18.494.035.006 3.06 18.493-.036-.005-3.059ZM71.231 68.25l-18.493.034.006 3.06 18.493-.036-.006-3.059ZM71.22 62.143l-18.494.035.006 3.06 18.494-.036-.006-3.059ZM71.208 56.025l-18.494.035.006 3.06 18.494-.036-.006-3.06Z" fill="#13294E"/></symbol></svg>        </div>
+    <div id="wrap">
+        <noscript>
+            <strong>Warning!</strong> Your browser does not support JavaScript!
+        </noscript>
+
+
+        <header id="header" class="headroom header--default">
+            <div class="header__tertiary">
+                <div class="header__inner">
+
+                    <ul class="menu menu--tertiary mb-0">
+                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-641">
+
+
+
+                            <a href="https://corsearch.com/platform-logins/" title="Platform&#x20;Logins" target="_self" class="nav-link">
+                    Platform Logins
+                </a>
+
+
+
+                        </li>
+                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-17264">
+
+
+
+                            <a href="https://corsearch.com/contact-us/" title="Contact&#x20;Us" target="_self" class="nav-link">
+                    Contact Us
+                </a>
+
+
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header__inner">
+                <a href="https://corsearch.com" aria-label="Return to the Corsearch homepage" title="Return to the Corsearch homepage" rel="home" class="brand">
+                        <svg enable-background="new 0 0 566.93 66.38" viewBox="0 0 566.93 66.38" xmlns="http://www.w3.org/2000/svg"><g fill="#8c0050"><path d="m6.56 17.3c-4.37 4.4-6.56 10.16-6.56 15.91 0 5.7 2.16 11.4 6.45 15.78l-.01.01 15.93 15.93h31.53v-13.77h-25.81s-10.14-10.16-10.19-10.21c-1.46-1.62-4.11-3.97-4.11-7.74 0-4.04 2.77-6.4 4.39-8.03l9.91-9.91h25.81v-13.78h-31.52z"/><path d="m441.97 17.3c-4.37 4.4-6.56 10.16-6.56 15.91 0 5.7 2.16 11.4 6.45 15.78l-.01.01 15.93 15.93h31.53v-13.77h-25.81s-10.14-10.16-10.19-10.21c-1.46-1.62-4.11-3.97-4.11-7.74 0-4.04 2.77-6.4 4.39-8.03l9.91-9.91h25.82v-13.78h-31.53z"/><path d="m253.85 64.94h44.73v-12.91h-30.75v-12.12h17.65v-12.76h-17.65v-12.76h30.75v-12.9h-44.73z"/><path d="m185.81 20.71c0-10.6-8.63-19.23-19.23-19.23h-28.87v63.46h13.81v-25h6.44l18.84 25h15.75l-19.66-26.08c7.51-2.62 12.92-9.76 12.92-18.15zm-20.67 6.43h-13.62v-13.1h13.99c4.27 0 7.15 3 7.15 6.55-.01 3.55-2.89 6.55-7.52 6.55z"/><path d="m427.08 20.71c0-10.6-8.63-19.23-19.23-19.23h-28.87v63.46h13.81v-25h6.44l18.84 25h15.75l-19.66-26.08c7.51-2.62 12.92-9.76 12.92-18.15zm-20.67 6.43h-13.62v-13.1h13.99c4.27 0 7.15 3 7.15 6.55-.01 3.55-2.89 6.55-7.52 6.55z"/><path d="m552.95 27.12h-35.49v-25.63h-13.99v63.45h13.99v-25.46h35.49v25.46h13.98v-63.45h-13.98z"/><path d="m94.19 0c-18.56 0-33.17 15.19-33.17 33.17s14.61 33.17 33.17 33.17c18.36 0 33.27-14.81 33.27-33.17-.01-18.36-14.91-33.17-33.27-33.17zm0 53.07c-10.86 0-19.33-9.04-19.33-19.9 0-10.96 8.46-20 19.33-19.9 10.67-.1 19.33 8.75 19.42 19.9-.1 11.06-8.75 19.9-19.42 19.9z"/><path d="m333.01 1.48-27.59 63.46h14.78l5.48-13.27h25.82l5.38 13.27h15.26l-27.59-63.46zm-2.43 38.08 8.1-20.29 7.91 20.29z"/><path d="m212.43 18.12c0-3.85 4.61-5.7 9.33-5.7 4.13 0 8.56 1.85 11.15 4.35l7.11-10.1c-6.73-4.9-11.92-6.63-19.42-6.63-10.67 0-22.02 6.83-22.02 18.17 0 20.57 29.71 17.73 29.71 28.94 0 3.75-3.08 6.67-8.56 6.67-5.54 0-11.31-2.86-15.02-6.49l-7.34 10.52c6.29 5.28 14.68 8.54 22.36 8.54 11.63 0 22.4-7.79 22.4-19.33.01-21.54-29.7-19.86-29.7-28.94z"/></g></svg>
+            </a>
+                <nav class="navbar">
+                    <a href="" class="menu-search menu-search--small js-trigger-dropdown" data-dropdown="search"><span>Search</span></a>
+                    <button class="hamburger navbar-toggler collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle Menu" aria-controls="main-menu" data-bs-target="#main-menu">
+            <span class="hamburger__box">
+                <span class="hamburger__line hamburger__line--top"></span>
+                <span class="hamburger__line hamburger__line--bottom"></span>
+            </span>
+        </button>
+                    <div id="main-menu" class="collapse navbar-collapse">
+
+                        <ul class="menu primary-nav">
+                            <li class="trademark menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5555 menu-item-has-children dropdown">
+
+
+
+                                <a href="#" title="Trademark&#x20;Solutions" role="button" aria-expanded="false" class="nav-link js-trigger-dropdown">
+                    Trademark Solutions
+                </a>
+                                <div class=" dropdown-menu--- megamenu js-dropdown ">
+                                    <div class="container">
+                                        <div class="pt-4">
+
+                                            <ul class="megamenu__columns dropdown-nav row">
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5559 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Solutions</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5562 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/trademark-solutions/create-a-brand/" class="nav-link corsearch-icon-trademark-screening" target="_self" rel="noopener" title="Create&#x20;a&#x20;Brand">
+                                                                <div>
+                                                                    <p class="nav-link__title">Create a Brand</p>
+                                                                    <p class="nav-link__description">Generate potential names and screen at scale</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5563 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/trademark-solutions/clear-a-trademark/" class="nav-link corsearch-icon-trademark-searching" target="_self" rel="noopener" title="Clear&#x20;a&#x20;Trademark">
+                                                                <div>
+                                                                    <p class="nav-link__title">Clear a Trademark</p>
+                                                                    <p class="nav-link__description">Check mark viability with full clearance tools</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5564 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/trademark-solutions/watch-a-trademark/" class="nav-link corsearch-icon-trademark-watching" target="_self" rel="noopener" title="Watch&#x20;a&#x20;Trademark">
+                                                                <div>
+                                                                    <p class="nav-link__title">Watch a Trademark</p>
+                                                                    <p class="nav-link__description">Monitor infringing trademark filings globally</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5558 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Approach</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-15185 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/trademark-solutions/" class="nav-link corsearch-icon-trademark-clearance" target="_self" rel="noopener" title="Trademark&#x20;Solutions">
+                                                                <div>
+                                                                    <p class="nav-link__title">Trademark Solutions</p>
+                                                                    <p class="nav-link__description">How we combine technology and expertise</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-17496 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/trademarknow/" class="nav-link corsearch-icon-stamp" target="_self" rel="noopener" title="Corsearch&#x20;TrademarkNow">
+                                                                <div>
+                                                                    <p class="nav-link__title">Corsearch TrademarkNow</p>
+                                                                    <p class="nav-link__description">The next generation of Trademark Solutions</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </li>
+                            <li class="brand-protection menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5556 menu-item-has-children dropdown">
+
+
+
+                                <a href="#" title="Brand&#x20;Protection" role="button" aria-expanded="false" class="nav-link js-trigger-dropdown">
+                    Brand Protection
+                </a>
+                                <div class=" dropdown-menu--- megamenu js-dropdown ">
+                                    <div class="container">
+                                        <div class="pt-4">
+
+                                            <ul class="megamenu__columns dropdown-nav row">
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5568 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Solutions</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5570 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/stop-counterfeits/" class="nav-link corsearch-icon-flag-alt" target="_self" rel="noopener" title="Stop&#x20;Counterfeits">
+                                                                <div>
+                                                                    <p class="nav-link__title">Stop Counterfeits</p>
+                                                                    <p class="nav-link__description">Find and remove counterfeits on all channels</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-14990 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/stop-impersonation/" class="nav-link corsearch-icon-brand-protection" target="_self" rel="noopener" title="Stop&#x20;Impersonation">
+                                                                <div>
+                                                                    <p class="nav-link__title">Stop Impersonation</p>
+                                                                    <p class="nav-link__description">Tackle broad threats from sophisticated actors</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5571 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/stop-gray-markets/" class="nav-link corsearch-icon-e-commerce-protection" target="_self" rel="noopener" title="Stop&#x20;Gray&#x20;Markets">
+                                                                <div>
+                                                                    <p class="nav-link__title">Stop Gray Markets</p>
+                                                                    <p class="nav-link__description">Tackle gray market and distribution threats</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5572 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/track-protect-domain-names/" class="nav-link corsearch-icon-domains" target="_self" rel="noopener" title="Track&#x20;&amp;&#x23;038&#x3B;&#x20;Protect&#x20;Domain&#x20;Names">
+                                                                <div>
+                                                                    <p class="nav-link__title">Track &#038; Protect Domain Names</p>
+                                                                    <p class="nav-link__description">Register, renew, and protect domains</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5567 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Approach</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-13646 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/" class="nav-link corsearch-icon-trademark-clearance" target="_self" rel="noopener" title="Brand&#x20;Protection&#x20;Solutions">
+                                                                <div>
+                                                                    <p class="nav-link__title">Brand Protection Solutions</p>
+                                                                    <p class="nav-link__description">How we combine technology and expertise</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-18132 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/investigations/" class="nav-link corsearch-icon-target" target="_self" rel="noopener" title="Investigations&#x20;360">
+                                                                <div>
+                                                                    <p class="nav-link__title">Investigations 360</p>
+                                                                    <p class="nav-link__description">Find the people and places behind threats</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-18678 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/brand-protection-solutions/revenue-recovery/" class="nav-link corsearch-icon-briefcase" target="_self" rel="noopener" title="Revenue&#x20;Recovery&#x20;360">
+                                                                <div>
+                                                                    <p class="nav-link__title">Revenue Recovery 360</p>
+                                                                    <p class="nav-link__description">Collect compensation from counterfeiters</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </li>
+                            <li class="content-protection menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5557 menu-item-has-children dropdown">
+
+
+
+                                <a href="#" title="Content&#x20;Protection" role="button" aria-expanded="false" class="nav-link js-trigger-dropdown">
+                    Content Protection
+                </a>
+                                <div class=" dropdown-menu--- megamenu js-dropdown ">
+                                    <div class="container">
+                                        <div class="pt-4">
+
+                                            <ul class="megamenu__columns dropdown-nav row">
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5575 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Solutions</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5578 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/what-we-do/content-protection-for-film-tv/" class="nav-link corsearch-icon-p2p-streaming" target="_self" rel="noopener" title="Film&#x20;&amp;&#x20;TV">
+                                                                <div>
+                                                                    <p class="nav-link__title">Film & TV</p>
+                                                                    <p class="nav-link__description">Prevent illegal streaming and digital downloads of film and TV content</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5579 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/what-we-do/content-protection-for-gaming-software/" class="nav-link corsearch-icon-gaming-and-software" target="_self" rel="noopener" title="Gaming&#x20;&amp;&#x20;Software">
+                                                                <div>
+                                                                    <p class="nav-link__title">Gaming & Software</p>
+                                                                    <p class="nav-link__description">Tackle softlifting, illegal downloads of video games, and software piracy</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5580 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/what-we-do/content-protection-for-publishing-media/" class="nav-link corsearch-icon-publishing-and-media" target="_self" rel="noopener" title="Publishing&#x20;&amp;&#x20;Media">
+                                                                <div>
+                                                                    <p class="nav-link__title">Publishing & Media</p>
+                                                                    <p class="nav-link__description">Combat distribution of pirated ebooks, audiobooks, and editorialized content</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5581 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/what-we-do/content-protection-for-music/" class="nav-link corsearch-icon-music" target="_self" rel="noopener" title="Music">
+                                                                <div>
+                                                                    <p class="nav-link__title">Music</p>
+                                                                    <p class="nav-link__description">Tackle stream ripping, illegal streams, torrents, and P2P sharing of music</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5574 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Our Approach</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5576 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/what-we-do/" class="nav-link corsearch-icon-trademark-clearance" target="_self" rel="noopener" title="What&#x20;We&#x20;Do">
+                                                                <div>
+                                                                    <p class="nav-link__title">What We Do</p>
+                                                                    <p class="nav-link__description">Why Choose Corsearch</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5577 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-protection/how-we-do-it/" class="nav-link corsearch-icon-stamp" target="_self" rel="noopener" title="How&#x20;We&#x20;Do&#x20;It">
+                                                                <div>
+                                                                    <p class="nav-link__title">How We Do It</p>
+                                                                    <p class="nav-link__description">How we combine technology and expertise</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </li>
+                            <li class="resources menu-item menu-item-type-post_type menu-item-object-page menu-item-5582 menu-item-has-children dropdown">
+
+
+
+                                <a href="#" title="Insights&#x20;&amp;&#x20;Events" role="button" aria-expanded="false" class="nav-link js-trigger-dropdown">
+                    Insights & Events
+                </a>
+                                <div class=" dropdown-menu--- megamenu js-dropdown ">
+                                    <div class="container">
+                                        <div class="pt-4">
+
+                                            <ul class="megamenu__columns dropdown-nav row">
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5584 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Content</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5586 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/resources/content-library/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Content&#x20;Library">
+                                                                <div>
+                                                                    <p class="nav-link__title">Content Library</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-5587 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-library/blog/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Blogs">
+                                                                <div>
+                                                                    <p class="nav-link__title">Blogs</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-5588 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-library/ebooks/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Ebooks&#x20;and&#x20;Guides">
+                                                                <div>
+                                                                    <p class="nav-link__title">Ebooks and Guides</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-5589 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-library/case-studies/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Case&#x20;Studies">
+                                                                <div>
+                                                                    <p class="nav-link__title">Case Studies</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-5590 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/content-library/webinars/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Webinars">
+                                                                <div>
+                                                                    <p class="nav-link__title">Webinars</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-5585 menu-item-has-children dropdown-nav__item">
+
+
+
+                                                    <span class="nav-menu-header">Events</span>
+
+                                                    <ul class="megamenu__links">
+                                                        <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-5592 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/resources/events/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Events&#x20;Library">
+                                                                <div>
+                                                                    <p class="nav-link__title">Events Library</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                        <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-5591 dropdown-sub-nav__item--- ">
+
+
+
+                                                            <a href="https://corsearch.com/resources/events/#summits" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="INSYNC&#x20;Summits">
+                                                                <div>
+                                                                    <p class="nav-link__title">INSYNC Summits</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-webinars menu-item-19804 dropdown-nav__item">
+
+
+
+                                                    <div class="megamenu__article ps-lg-5 pe-4 pt-4 pb-4 pb-lg-0">
+                                                        <a href="https://corsearch.com/content-library/webinars/speak-to-your-searches/" title="Learn">
+                                                                                                                            
+                            <img
+                    src="/wp-content/uploads/2024/11/Webinar_2025_Boost-Productivity-Examatch-AI_Hero-12x0-c-default.jpg"
+                    data-src="/wp-content/uploads/2024/11/Webinar_2025_Boost-Productivity-Examatch-AI_Hero-400x0-c-default.jpg"
+                    alt="Webinar&#x20;-&#x20;Speak&#x20;to&#x20;your&#x20;Searches&#x3A;&#x20;Boost&#x20;Productivity&#x20;with&#x20;Examatch&#x20;AI"
+                    class="mb-3 lazyload blur-up">
+                        <p><small>Webinars | February 27</small></p>
+            <h3>Speak to Your Searches: Boost Productivity With ExaMatch AI</h3>
+            <a href="https://corsearch.com/content-library/webinars/speak-to-your-searches/" class="btn-tertiary" title="Learn">
+                Learn
+            </a>
+                                                        </a>
+                                                    </div>
+
+
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </li>
+                            <li class="about menu-item menu-item-type-post_type menu-item-object-page menu-item-5583 menu-item-has-children dropdown">
+
+
+
+                                <a href="#" title="About" role="button" aria-expanded="false" class="nav-link js-trigger-dropdown">
+                    About
+                </a>
+                                <div class=" dropdown-menu--- megamenu js-dropdown ">
+                                    <div class="container">
+                                        <div class="pt-4">
+
+                                            <ul class="megamenu__columns dropdown-nav row">
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-page menu-item-5596 dropdown-nav__item">
+
+
+
+                                                    <a href="https://corsearch.com/about/our-story/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Our&#x20;Story">
+                                                        <div>
+                                                            <p class="nav-link__title">Our Story</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-page menu-item-5597 dropdown-nav__item">
+
+
+
+                                                    <a href="https://corsearch.com/about/esg/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="ESG">
+                                                        <div>
+                                                            <p class="nav-link__title">ESG</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-page menu-item-5598 dropdown-nav__item">
+
+
+
+                                                    <a href="https://corsearch.com/about/press-room/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Press&#x20;Room">
+                                                        <div>
+                                                            <p class="nav-link__title">Press Room</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-page menu-item-5599 dropdown-nav__item">
+
+
+
+                                                    <a href="https://corsearch.com/about/leadership-team/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Leadership&#x20;Team">
+                                                        <div>
+                                                            <p class="nav-link__title">Leadership Team</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-post_type menu-item-object-page menu-item-17331 dropdown-nav__item">
+
+
+
+                                                    <a href="https://corsearch.com/contact-us/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Contact&#x20;Us">
+                                                        <div>
+                                                            <p class="nav-link__title">Contact Us</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+
+                                                <li class="col-12 col-lg-4  menu-item menu-item-type-custom menu-item-object-custom menu-item-6287 dropdown-nav__item">
+
+
+
+                                                    <a href="https://careers.corsearch.com/" class="nav-link nav-link--no-icon" target="_self" rel="noopener" title="Careers">
+                                                        <div>
+                                                            <p class="nav-link__title">Careers</p>
+                                                        </div>
+                                                    </a>
+
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                            </li>
+                            <li class="menu-item menu-item--cta">
+                                <span class="js-cta-container" data-label="AB-Test">
+                    <a href="https://corsearch.com/talk-to-an-expert/" class="btn btn-secondary">Talk to an expert</a>
+                </span>
+                                <a href="#talk-to-an-expert" data-label="AB-Test" class="d-none btn btn-secondary">Talk to an expert</a>
+                            </li>
+                            <li>
+                                <a href="" class="menu-search menu-search--large js-trigger-dropdown" data-dropdown="search"><span>Search</span></a>
+                            </li>
+
+                        </ul> <span class="active-bar"></span>
+                    </div>
+                </nav>
+
+                <div class="search-bar js-megamenu-search js-dropdown">
+                    <div class="search-bar-position">
+                        <div class="search-input-group">
+                            <div itemscope itemtype="http://schema.org/WebSite" class="search">
+                                <meta itemprop="url" content="https://corsearch.com">
+                                <form id="search-form" method="get" class="search-form " action="https://corsearch.com/" itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+                                    <meta itemprop="target" content="https://corsearch.com?s={s}">
+                                    <div class="input-group">
+                                        <input type="search" name="s" type="search" class="form-control" value="" itemprop="query-input" placeholder="Search Corsearch" autocomplete="off" required aria-required="true">
+                                        <input type="hidden" name="post_type" value="" />
+                                        <button type="submit" id="search-submit" class="" aria-label="Search">Search</button>
+                                    </div>
+                                </form>
+                            </div> <button class="search-close js-search-close"></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </header>
+
+
+
+
+
+        <div class="modal-container js-form-modal">
+            <div class="overlay overlay--modal"></div>
+            <div class="form-columns js-modal-container form-columns--popup">
+
+                <div class="container">
+                    <button class="dual-cta-modal__close-modal close-modal">✕</button>
+                    <div class="row">
+
+                        <div class="col-12 col-lg-6 d-none d-lg-block">
+
+                            <div class="form-columns__information">
+                                <header class="profile-heading mb-3">
+                                    <div class="profile-heading__copy">
+                                        <h2>Speak to one of our experts</h2>
+                                        <p>Find out how Corsearch can help you establish, monitor, and protect your brand with confidence.</p>
+                                    </div>
+                                    <picture class="mb-4 mb-md-0">
+                                        <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2024&#x2F;10&#x2F;Corsearch-expert-analysts-investigators_v3_1920x1215-208x208-c-default.jpg" alt="Corsearch&#x20;Expert&#x20;Analysts&#x20;&amp;&#x20;Investigators&#x20;-&#x20;Brand&#x20;Protection&#x20;&amp;&#x20;Trademark&#x20;Solutions"
+                                            class="lazyload blur-up">
+                                    </picture>
+                                </header>
+
+                                <ul class="tick-list mb-3">
+                                    <li class="mb-3"><span>Instantly identify IP opportunities and threats</span></li>
+                                    <li class="mb-3"><span>Harness expertise and advanced AI to reduce cost</span></li>
+                                    <li class="mb-3"><span>Act fast using reliable data and intuitive dashboards</span></li>
+                                    <li class="mb-3"><span>Report effectively on the revenue you’re protecting</span></li>
+                                </ul>
+
+                                <div class="logo-set">
+                                    <p class="mb-4">Corsearch is trusted by:</p>
+                                    <ul class="mt-2">
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2022&#x2F;11&#x2F;Decathlon_Logo_RGB.svg" alt="Corsearch&#x20;client&#x20;-&#x20;Decathlon" class="lazyload blur-up">
+                                        </li>
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2023&#x2F;06&#x2F;Mondelez-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Mondelez" class="lazyload blur-up">
+                                        </li>
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2022&#x2F;11&#x2F;dark-New-Era.svg" alt="" class="lazyload blur-up">
+                                        </li>
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2022&#x2F;08&#x2F;Reckitt-Logo_RGB.svg" alt="" class="lazyload blur-up">
+                                        </li>
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2023&#x2F;06&#x2F;Unilever-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Unilever" class="lazyload blur-up">
+                                        </li>
+                                        <li class="mb-4">
+                                            <img src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2023&#x2F;06&#x2F;Brother-logo_RGB_.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Brother" class="lazyload blur-up">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 col-lg-6 form__wrapper">
+                            <div class="pardot__form">
+
+                                <iframe loading="lazy" title="Talk to an Expert (new)" src="https://go.corsearch.com/l/931713/2022-10-31/2fvc7" last_form_submitted="Talk to an expert" width="100%" height="500" type="text/html" frameborder="0" allowTransparency="true" style="border: 0"></iframe>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <main id="main" class="header--default">
+            <div class="page-content">
+
+                <div class="page-header overflow-visible position-relative">
+                    <div class="container">
+                        <div class="pb-lg-5">
+                            <div class="row pb-lg-5 pt-lg-5 justify-content-between">
+                                <div class="col-12 col-lg-6 col-lg-5 mb-4 mb-md-0 ">
+                                    <h1 class="mb-4 mb-md-4 page-header__title">Incopro Is Now a Part of Corsearch</span>
+                                    </h1>
+                                    <p class="mb-4 mb-md-4">Following our acquisition of Incopro in 2021, Incopro has been fully integrated with Corsearch. Incopro’s advanced technology and years of industry expertise have contributed to Corsearch’s next generation of brand
+                                        protection solutions.</p>
+                                    <a href="https://corsearch.com/brand-protection-solutions/" title="See&#x20;our&#x20;solutions" class="btn btn-secondary mt-md-4 mr-4">See our solutions</a>
+                                    <a href="https://corsearch.com/request-a-demo/" title="Request&#x20;a&#x20;demo" class="btn btn-tertiary mt-4">Request a demo</a>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-5 header__image">
+                                    <img decoding="async" src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2023&#x2F;06&#x2F;Incopro-is-now-a-part-of-Corsearch_hero3-624x0-c-default.png" alt="Incopro&#x20;is&#x20;now&#x20;a&#x20;part&#x20;of&#x20;Corsearch" class="lazyload blur-up image-radius">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <p class="has-text-align-center">Corsearch is trusted by <strong>5000+</strong> customers worldwide</p>
+
+
+                <div class="brand-carousel ">
+                    <div class="brand-images">
+
+
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2022/05/Bob-Ross-Logo_Positive_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Unilever-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Unilever" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Reckitt-Logo_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Mondelez-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Mondelez" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/07/blendjet-logo.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Blendjet" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2024/11/Franke_Logo_Red_BG_CMYK_1.svg" alt="Corsearch&#x20;Customer&#x20;-&#x20;Franke" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/11/Joma-Sport_logo.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Joma&#x20;Sport" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/AirPot-logo_colour.png" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Leading-Edge-Health-logo.png" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Lipsy_Logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Lipsy" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/NXP_logo_RGB_web1.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2022/11/Decathlon_Logo_RGB.svg" alt="Corsearch&#x20;client&#x20;-&#x20;Decathlon" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/On-Logo-Black_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Brother-logo_RGB_.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Brother" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/11/Kings-League_logo.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2022/05/Bob-Ross-Logo_Positive_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Unilever-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Unilever" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Reckitt-Logo_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Mondelez-logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Mondelez" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/07/blendjet-logo.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Blendjet" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2024/11/Franke_Logo_Red_BG_CMYK_1.svg" alt="Corsearch&#x20;Customer&#x20;-&#x20;Franke" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/11/Joma-Sport_logo.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Joma&#x20;Sport" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/AirPot-logo_colour.png" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Leading-Edge-Health-logo.png" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Lipsy_Logo.svg" alt="Corsearch&#x20;Client&#x20;-&#x20;Lipsy" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/NXP_logo_RGB_web1.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2022/11/Decathlon_Logo_RGB.svg" alt="Corsearch&#x20;client&#x20;-&#x20;Decathlon" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/On-Logo-Black_RGB.svg" alt="" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/06/Brother-logo_RGB_.svg" alt="Corsearch&#x20;customer&#x20;-&#x20;Brother" height="28">
+                        </div>
+                        <div class="brand-image">
+                            <img decoding="async" src="https://corsearch.com/wp-content/uploads/2023/11/Kings-League_logo.svg" alt="" height="28">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="height:45px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+                <section class="image-cta-banner dark-mode pb-4 pb-md-0 ">
+                    <div class="container">
+                        <div class="row ">
+                            <div class="icb__content col-md-8 py-4 py-lg-5">
+                                <div class="">
+                                    <h2 class="mb-4">Explore your brands&#8217; true market presence. Start your journey now</h2>
+                                    <a href="https://corsearch.com/talk-to-an-expert/" title="Talk&#x20;to&#x20;an&#x20;expert" class=" btn btn-secondary">
+                            Talk to an expert
+                        </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 ict__fig-wrapper ">
+                                <figure class="mb-0 py-xxl-4 cropped">
+                                    <img decoding="async" src="https&#x3A;&#x2F;&#x2F;corsearch.com&#x2F;wp-content&#x2F;uploads&#x2F;2024&#x2F;02&#x2F;What-Your-Consumers-See_cropped-780x0-c-default.webp" alt="" class="lazyload blur-up">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+                <div class="featured-solutions ">
+                    <div class="container pb-5 pt-5" data-section-anim>
+
+                        <header class="mb-5 pb-4 text-center">
+                            <h3 class="mb-0 faux-h2">See our brand protection solutions</h3>
+                        </header>
+
+                        <div class="card-carousel__wrapper">
+                            <div class="row card-carousel justify-content-center">
+
+
+                                <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                                    <a href="https://corsearch.com/brand-protection/what-we-do/track-protect-domain-names/" class="card--new card--other card--hover" title="Learn&#x20;more">
+                                        <div>
+                                            <h4 class="card__title title-icon custom-icon custom-icon--flag-alt " data-match-height="title-cards">Stop Counterfeits</h4>
+                                            <p class="card__content">Detect and remove counterfeits across all online channels. Safeguard revenue, uphold brand reputation, and protect consumer trust. </p>
+                                        </div>
+                                        <button class="btn btn-tertiary">Learn more</button>
+                                    </a>
+                                </div>
+
+
+
+                                <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-impersonation/" class="card--new card--other card--hover" title="Learn&#x20;more">
+                                        <div>
+                                            <h4 class="card__title title-icon custom-icon custom-icon--brand-protection " data-match-height="title-cards">Stop Impersonation</h4>
+                                            <p class="card__content">Tackle broader threats, from sophisticated bad actors online, to protect your consumers and their trust.</p>
+                                        </div>
+                                        <button class="btn btn-tertiary">Learn more</button>
+                                    </a>
+                                </div>
+
+
+
+                                <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-gray-markets/" class="card--new card--other card--hover" title="Learn&#x20;more">
+                                        <div>
+                                            <h4 class="card__title title-icon custom-icon custom-icon--online-marketplaces " data-match-height="title-cards">Stop Gray Markets</h4>
+                                            <p class="card__content">Gain visibility of gray market threats and take back control of your distribution networks online.</p>
+                                        </div>
+                                        <button class="btn btn-tertiary">Learn more</button>
+                                    </a>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div style="height:45px" aria-hidden="true" class="wp-block-spacer"></div>
+
+            </div>
+        </main>
+
+
+
+
+        <footer id="footer">
+
+            <div class="footer__navs background--white pt-5">
+                <div class="container">
+                    <div class="row mb-lg-5 align-items-start justify-content-start justify-content-lg-between">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <h4 class="footer__heading mb-md-4">Company</h4>
+
+                            <ul class="menu menu--sitemap footer__nav mb-5 mb-lg-0">
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-4051">
+
+
+
+                                    <a href="https://corsearch.com/about/our-story/" title="Our&#x20;Story" target="_self" class="nav-link">
+                    Our Story
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-4054">
+
+
+
+                                    <a href="https://corsearch.com/about/esg/" title="ESG" target="_self" class="nav-link">
+                    ESG
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-4052">
+
+
+
+                                    <a href="https://corsearch.com/about/press-room/" title="Press&#x20;Room" target="_self" class="nav-link">
+                    Press Room
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-4053">
+
+
+
+                                    <a href="https://corsearch.com/about/leadership-team/" title="Leadership&#x20;Team" target="_self" class="nav-link">
+                    Leadership Team
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-4820">
+
+
+
+                                    <a href="https://careers.corsearch.com/" title="Careers" target="_self" class="nav-link">
+                    Careers
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-17265">
+
+
+
+                                    <a href="https://corsearch.com/contact-us/" title="Contact&#x20;Us" target="_self" class="nav-link">
+                    Contact Us
+                </a>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <h4 class="footer__heading mb-md-4">Resources</h4>
+
+                            <ul class="menu menu--sitemap footer__nav mb-5 mb-lg-0">
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-12592">
+
+
+
+                                    <a href="https://corsearch.com/legal/" title="Legal" target="_self" class="nav-link">
+                    Legal
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-12593">
+
+
+
+                                    <a href="https://corsearch.com/privacy/" title="Privacy" target="_self" class="nav-link">
+                    Privacy
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-3371">
+
+
+
+                                    <a href="https://corsearch.com/user-agreement/" title="User&#x20;Agreement" target="_self" class="nav-link">
+                    User Agreement
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-3339">
+
+
+
+                                    <a href="https://corsearch.com/whistleblowing-policy-and-channel/" title="Whistleblowing&#x20;Policy&#x20;&amp;&#x23;038&#x3B;&#x20;Channel" target="_self" class="nav-link">
+                    Whistleblowing Policy &#038; Channel
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-2635">
+
+
+
+                                    <a href="https://corsearch.com/imprint/" title="Imprint" target="_self" class="nav-link">
+                    Imprint
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-16530">
+
+
+
+                                    <a href="https://corsearch.com/wp-content/uploads/2024/07/Corsearch-Codes-of-Conduct.pdf" title="Code&#x20;of&#x20;Conduct" target="_self" class="nav-link">
+                    Code of Conduct
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-18625">
+
+
+
+                                    <a href="https://corsearch.com/wp-content/uploads/2024/09/GenderPayGap_Rev1.pdf" title="2024&#x20;Gender&#x20;Pay&#x20;Gap&#x20;Report&#x20;-&#x20;UK" target="_self" class="nav-link">
+                    2024 Gender Pay Gap Report - UK
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-18626">
+
+
+
+                                    <a href="https://corsearch.com/wp-content/uploads/2024/10/Corsearch-ESG-Report-2023-Final_v2.pdf" title="2023&#x20;ESG&#x20;Report" target="_self" class="nav-link">
+                    2023 ESG Report
+                </a>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <h4 class="footer__heading mb-md-4">Featured Content</h4>
+
+                            <ul class="menu menu--sitemap footer__nav mb-5 mb-lg-0">
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-8651">
+
+
+
+                                    <a href="https://corsearch.com/content-library/ebooks/trademark-industry-report-2024/" title="Trademark&#x20;Industry&#x20;Report&#x20;2024" target="_self" class="nav-link">
+                    Trademark Industry Report 2024
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-8648">
+
+
+
+                                    <a href="/content-library/ebooks/the-definitive-guide-to-trademarks/" title="The&#x20;Definitive&#x20;Guide&#x20;to&#x20;Trademarks" target="_self" class="nav-link">
+                    The Definitive Guide to Trademarks
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-8649">
+
+
+
+                                    <a href="/content-library/ebooks/online-brand-protection-maturity-report/" title="Online&#x20;Brand&#x20;Protection&#x20;Maturity&#x20;Report" target="_self" class="nav-link">
+                    Online Brand Protection Maturity Report
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-8650">
+
+
+
+                                    <a href="/content-library/ebooks/the-definitive-guide-to-brand-protection/" title="The&#x20;Definitive&#x20;Guide&#x20;to&#x20;Brand&#x20;Protection" target="_self" class="nav-link">
+                    The Definitive Guide to Brand Protection
+                </a>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <h4 class="footer__heading mb-md-4">Marketplace Solutions</h4>
+
+                            <ul class="menu menu--sitemap footer__nav mb-5 mb-lg-0">
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-8652">
+
+
+
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-counterfeits-facebook-marketplace/" title="Stop&#x20;Counterfeits&#x20;on&#x20;Facebook&#x20;Marketplace" target="_self" class="nav-link">
+                    Stop Counterfeits on Facebook Marketplace
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-8653">
+
+
+
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-counterfeits-alibaba/" title="Stop&#x20;Counterfeits&#x20;on&#x20;Alibaba" target="_self" class="nav-link">
+                    Stop Counterfeits on Alibaba
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-8654">
+
+
+
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-counterfeits-amazon/" title="Stop&#x20;Counterfeits&#x20;on&#x20;Amazon" target="_self" class="nav-link">
+                    Stop Counterfeits on Amazon
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-8655">
+
+
+
+                                    <a href="https://corsearch.com/brand-protection-solutions/stop-counterfeits-ebay/" title="Stop&#x20;Counterfeits&#x20;on&#x20;eBay" target="_self" class="nav-link">
+                    Stop Counterfeits on eBay
+                </a>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="footer__main">
+                <div class="container">
+                    <div class="row mb-5 align-items-start justify-content-between">
+
+                        <div class="footer__brand col-12 col-md-5 mt-3">
+                            <a href="https://corsearch.com" aria-label="Corsearch" title="Corsearch" rel="home" class="brand mt-3">
+                                            <img
+                            src="/wp-content/uploads/2024/03/Corsearch_Logo.svg"
+                            srcset="/wp-content/uploads/2024/03/Corsearch_Logo.svg 1x, /wp-content/uploads/2024/03/Corsearch_Logo.svg 2x"
+                            alt="Corsearch"
+                            class="brand__logo lazyload blur-up mb-4">
+                                    </a>
+
+                            <div class="footer__newsletter">
+                                <p>Sign up to our mailing list to get the latest on our products, services, events, industry insights and company announcements.</p>
+                                <a href="https://go.corsearch.com/l/931713/2021-10-21/7mdq" title="Join&#x20;the&#x20;mailing&#x20;list" class="btn btn-primary mt-2 mb-0" target="_blank" rel="noopener noreferrer">Join the mailing list</a>
+                            </div>
+                        </div>
+
+
+                        <div class="footer__menus--- col-12 col-md-6 mt-lg-5 justify-content-lg-end">
+                            <div class="footer__socials--large">
+
+                                <div class="footer__socials footer__socials--large col-12 col-md-auto order-1 order-md-2 mt-2 mb-0">
+                                    <ul class="social-networks mb-0">
+                                        <li class="network">
+                                            <a href="https://twitter.com/corsearch" aria-label="Corsearch on Twitter" title="Corsearch on Twitter" class="network__twitter" rel="noopener noreferrer" target="_blank">
+                <span>Twitter</span>
+            </a>
+                                        </li>
+                                        <li class="network">
+                                            <a href="https://www.linkedin.com/company/corsearchinc" aria-label="Corsearch on Linkedin" title="Corsearch on Linkedin" class="network__linkedin" rel="noopener noreferrer" target="_blank">
+                <span>Linkedin</span>
+            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <img src="/wp-content/uploads/2022/10/united-nations-global-compact.svg" alt="United Nations Global logo" data-toggle="tooltip" data-placement="top" title="Since 2022, Corsearch has been committed to the UN Global Compact corporate responsibility initiative and its principles in the areas of human rights, labor, the environment, and anti-corruption.">
+
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mt-lg-4">
+                            <div class="footer__mobile-social m-0 mt-5 footer__socials--small">
+                                <img src="/wp-content/uploads/2022/10/united-nations-global-compact.svg" alt="United Nations Global logo" data-toggle="tooltip" data-placement="top" title="Since 2022, Corsearch has been committed to the UN Global Compact corporate responsibility initiative and its principles in the areas of human rights, labor, the environment, and anti-corruption.">
+                                <div class="footer__socials footer__socials--small col-auto order-1 order-md-2">
+                                    <ul class="social-networks mb-0">
+                                        <li class="network">
+                                            <a href="https://twitter.com/corsearch" aria-label="Corsearch on Twitter" title="Corsearch on Twitter" class="network__twitter" rel="noopener noreferrer" target="_blank">
+                <span>Twitter</span>
+            </a>
+                                        </li>
+                                        <li class="network">
+                                            <a href="https://www.linkedin.com/company/corsearchinc" aria-label="Corsearch on Linkedin" title="Corsearch on Linkedin" class="network__linkedin" rel="noopener noreferrer" target="_blank">
+                <span>Linkedin</span>
+            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid footer__policy-bar hero-sticky---">
+                <div class="container">
+                    <div class="row mt-auto mb-2 align-items-end justify-content-between">
+                        <div class="footer__officials col-12 col-md-auto order-2 order-md-1 mt-4">
+                            <small class="copyright">&copy; 2025 Corsearch®, Inc. </small>
+
+                            <ul class="menu menu--policies mb-4 mb-md-0">
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-3503">
+
+
+
+                                    <a href="https://corsearch.com/privacy-policy/" title="Privacy&#x20;Policy" target="_blank" class="nav-link">
+                    Privacy Policy
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-custom menu-item-object-custom menu-item-3502">
+
+
+
+                                    <a href="https://corsearch-privacy.my.onetrust.com/webform/a7205c02-d954-419e-ab24-d947424fae85/4f50da68-a7bc-4ec2-beb3-d26b7bb90049" title="Privacy&#x20;Webform" target="_blank" class="nav-link">
+                    Privacy Webform
+                </a>
+
+
+
+                                </li>
+                                <li class="js-trigger-cookie-settings menu-item menu-item-type-custom menu-item-object-custom menu-item-50">
+
+
+
+                                    <a href="#" title="Cookies&#x20;settings" target="_self" class="nav-link">
+                    Cookies settings
+                </a>
+
+
+
+                                </li>
+                                <li class=" menu-item menu-item-type-post_type menu-item-object-page menu-item-49">
+
+
+
+                                    <a href="https://corsearch.com/modern-slavery-and-human-trafficking-statement/" title="MS&#x20;&amp;&#x20;HT&#x20;Statement" target="_self" class="nav-link">
+                    MS & HT Statement
+                </a>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OneTrust Cookies Settings button start -->
+            <button id="ot-sdk-btn" class="ot-sdk-show-settings" style="display: none">Cookie Settings</button>
+            <!-- OneTrust Cookies Settings button end -->
+        </footer>
+
+    </div>
+    <div class="js-form-container form-container"></div>
+
+    <script type="rocketlazyloadscript" data-rocket-src="//platform-api.sharethis.com/js/sharethis.js?ver=6.7.1#property=64ac170e0f9156001a2918e2&amp;product=inline-share-buttons&amp;source=platform" id="sharethis-js" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" data-rocket-src="https://corsearch.com/wp-includes/js/dist/vendor/react.min.js?ver=18.3.1" id="react-js" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" data-rocket-src="https://corsearch.com/wp-includes/js/dist/vendor/react-dom.min.js?ver=18.3.1" id="react-dom-js" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" data-rocket-src="https://corsearch.com/wp-includes/js/dist/escape-html.min.js?ver=6561a406d2d232a6fbd2" id="wp-escape-html-js" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" data-rocket-src="https://corsearch.com/wp-includes/js/dist/element.min.js?ver=cb762d190aebbec25b27" id="wp-element-js" data-rocket-defer defer></script>
+    <script type="rocketlazyloadscript" defer="defer" data-rocket-src="https://corsearch.com/wp-content/themes/corsearch/js/min/corsearch.min.js?ver=1739548923" id="main-js"></script>
+
+    <script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+        piAId = '932713';
+        piCId = '';
+        piHostname = 'go.corsearch.com';
+
+        (function() {
+            function async_load() {
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + piHostname + '/pd.js';
+                var c = document.getElementsByTagName('script')[0];
+                c.parentNode.insertBefore(s, c);
+            }
+            if (window.attachEvent) {
+                window.attachEvent('onload', async_load);
+            } else {
+                window.addEventListener('load', async_load, false);
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me -->
